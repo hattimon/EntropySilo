@@ -246,9 +246,6 @@ Planowane kanały wsparcia są dobrane tak, aby wpłaty były możliwie tanie za
 
 | Metoda | Najlepsze zastosowanie | Model kosztów |
 |---|---|---|
-| **⚡ Bitcoin Lightning przez osobny portfel darowizn [BTCPay Server](https://docs.btcpayserver.org/Guide/)** | Małe napiwki międzynarodowe | Bez prowizji platformy; zwykle niewielka opłata routingu. Internetowy portfel Lightning musi pozostać oddzielony od seedów EntropySilo. |
 | **₿ Bitcoin on-chain** | Większe napiwki międzynarodowe | Bezpośrednia wpłata bez operatora płatności; nadawca ponosi opłatę sieci Bitcoin. Adres do wpłat (SegWit, oddzielny od portfeli EntropySilo): `bc1q73wncmalnn4pa8fh742yfzwgmlscfc5lk240aw`. Zawsze zweryfikuj adres z tym repozytorium przed wysłaniem środków. |
-| **💳 [GitHub Sponsors](https://github.com/sponsors)** | Zagraniczne karty i wsparcie cykliczne | GitHub obecnie przekazuje 100% wpłat z kont osobistych sponsorów wspieranemu twórcy; warunki wypłaty i przewalutowania określa Stripe. |
-| **🇵🇱 [Zrzutka.pl](https://zrzutka.pl/how-it-works/support/donate)** | BLIK, polskie karty, Apple Pay, Google Pay i szybkie przelewy | Podstawowa usługa deklaruje brak obowiązkowej prowizji; wsparcie platformy oraz usługi premium pozostają dobrowolne. |
 
 Oficjalne dane do wpłat zostaną dodane wyłącznie po zweryfikowaniu adresów i profili przez hattimon. Nigdy nie wysyłaj środków na adres podany w zgłoszeniu, pull requeście, komentarzu ani niezamówionej wiadomości prywatnej.

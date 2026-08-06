@@ -246,9 +246,6 @@ The intended support channels are designed to remain inexpensive both in Poland 
 
 | Method | Best for | Cost model |
 |---|---|---|
-| **⚡ Bitcoin Lightning through a separate [BTCPay Server](https://docs.btcpayserver.org/Guide/) donation wallet** | Small international tips | No platform commission; normally small routing fees. The online Lightning wallet must remain separate from EntropySilo seeds. |
 | **₿ Bitcoin on-chain** | Larger international tips | Direct payment without a payment processor; the sender pays the Bitcoin network fee. Donation address (SegWit, separate from EntropySilo wallets): `bc1q73wncmalnn4pa8fh742yfzwgmlscfc5lk240aw`. Always verify the address against this repository before sending. |
-| **💳 [GitHub Sponsors](https://github.com/sponsors)** | International cards and recurring support | GitHub currently passes 100% of personal-account sponsorships to the sponsored developer; payout and currency-conversion conditions are governed by Stripe. |
-| **🇵🇱 [Zrzutka.pl](https://zrzutka.pl/how-it-works/support/donate)** | BLIK, Polish cards, Apple Pay, Google Pay and bank payments | Its basic fundraising service currently declares no mandatory commission; optional platform support and paid premium services remain voluntary. |
 
 Official payment details will be added here only after the receiving addresses and profiles have been verified by hattimon. Never send funds to an address posted in an issue, pull request, comment or unsolicited private message.
