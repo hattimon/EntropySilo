@@ -1,188 +1,197 @@
-ï»¿**JÄ™zyk:** [ğŸ‡¬ğŸ‡§ English](README.md) | [ğŸ‡µğŸ‡± Polski](README.pl.md)
+**Jêzyk:** [???? English](README.md) | [???? Polski](README.pl.md)
 
 <p align="center">
-  <img src="docs/assets/entropy-silo-logo.svg" alt="EntropySilo â€” Å›rodowisko offline do generowania seedÃ³w Bitcoin" width="820">
+  <img src="docs/assets/entropy-silo-logo.svg" alt="EntropySilo — œrodowisko offline do generowania seedów Bitcoin" width="820">
 </p>
 
 <p align="center">
-  <strong>Åšrodowisko offline do generowania seedÃ³w Bitcoin i podpisywania PSBT</strong><br>
-  Generuj Å›wiadomie. Odtwarzaj deterministycznie. Podpisuj offline.
+  <strong>Œrodowisko offline do generowania seedów Bitcoin i podpisywania PSBT</strong><br>
+  Generuj œwiadomie. Odtwarzaj deterministycznie. Podpisuj offline.
 </p>
 
 <p align="center">
-  <img alt="SieÄ‡: offline" src="https://img.shields.io/badge/sie%C4%87-air--gapped-21c55d?style=flat-square">
-  <img alt="Entropia BIP39: 256 bitÃ³w" src="https://img.shields.io/badge/entropia_BIP39-256_bit%C3%B3w-21c55d?style=flat-square">
+  <img alt="Sieæ: offline" src="https://img.shields.io/badge/sie%C4%87-air--gapped-21c55d?style=flat-square">
+  <img alt="Entropia BIP39: 256 bitów" src="https://img.shields.io/badge/entropia_BIP39-256_bit%C3%B3w-21c55d?style=flat-square">
   <img alt="Tylko Bitcoin" src="https://img.shields.io/badge/sie%C4%87-Bitcoin-f7931a?style=flat-square">
-  <img alt="Pi 2 zweryfikowany" src="https://img.shields.io/badge/sprz%C4%99t-Pi_2_zweryfikowany-5eff80?style=flat-square&labelColor=102014">
+  <img alt="Pi 2 / Live USB zweryfikowany" src="https://img.shields.io/badge/sprz%C4%99t-Pi_2_%2F_Live_USB_zweryfikowany-5eff80?style=flat-square&labelColor=102014">
   <img alt="Licencja: MIT" src="https://img.shields.io/badge/licencja-MIT-5eff80?style=flat-square&labelColor=102014">
   <img alt="Wymagany audyt" src="https://img.shields.io/badge/bezpiecze%C5%84stwo-wymagany_niezale%C5%BCny_audyt-d97706?style=flat-square">
 </p>
 
-EntropySilo to ukierunkowane na bezpieczeÅ„stwo Å›rodowisko offline do generowania, odzyskiwania, porzÄ…dkowania i uÅ¼ywania portfeli Bitcoin. ÅÄ…czy generowanie peÅ‚nej entropii BIP39, fizycznÄ… losowoÅ›Ä‡ pochodzÄ…cÄ… z kart, autorskie projekty hattimon [Seed Generator Wallet Decoder](https://github.com/hattimon/Seed-Generator-Wallet-Decoder) oraz [wallet-decoder](https://github.com/hattimon/wallet-decoder), deterministyczne portfele potomne BIP85, eksport watch-only i podpisywanie transakcji PSBT bez dostÄ™pu do sieci.
+EntropySilo to ukierunkowane na bezpieczeñstwo œrodowisko offline do generowania, odzyskiwania, porz¹dkowania i u¿ywania portfeli Bitcoin. £¹czy generowanie pe³nej entropii BIP39, fizyczn¹ losowoœæ pochodz¹c¹ z kart, autorskie projekty hattimon [Seed Generator Wallet Decoder](https://github.com/hattimon/Seed-Generator-Wallet-Decoder) oraz [wallet-decoder](https://github.com/hattimon/wallet-decoder), deterministyczne portfele potomne BIP85, eksport watch-only i podpisywanie transakcji PSBT bez dostêpu do sieci.
 
-EntropySilo udostÄ™pnia osobne cele budowania dla Raspberry Pi 2 Model B z ekranem Waveshare 3.5inch RPi LCD (A) oraz dla laptopÃ³w/PC x86-64 jako Live USB. Wersja 0.3.0 uÅ¼ywa nazwy i Å›cieÅ¼ek EntropySilo w obu systemach. Obrazy wydania zostanÄ… opublikowane dopiero po przejÅ›ciu automatycznej walidacji budowy; przed ochronÄ… znacznych Å›rodkÃ³w nadal wymagajÄ… potwierdzenia na fizycznym sprzÄ™cie.
+EntropySilo udostêpnia osobne cele budowania dla Raspberry Pi 2 Model B z ekranem Waveshare 3.5inch RPi LCD (A) oraz dla laptopów/PC x86-64 jako Live USB. Wersja 0.3.0 u¿ywa nazwy i œcie¿ek EntropySilo w obu systemach. Obrazy wydania zostan¹ opublikowane dopiero po przejœciu automatycznej walidacji budowy; przed ochron¹ znacznych œrodków nadal wymagaj¹ potwierdzenia na fizycznym sprzêcie.
 
 > [!WARNING]
-> EntropySilo jest eksperymentalnym, niezaleÅ¼nie zbudowanym urzÄ…dzeniem podpisujÄ…cym. Nie jest odpowiednikiem certyfikowanego portfela sprzÄ™towego i nie przeszedÅ‚ jeszcze niezaleÅ¼nego, profesjonalnego audytu bezpieczeÅ„stwa. Raspberry Pi 2 nie ma secure elementu, weryfikowanego/mierzonego rozruchu ani obudowy odpornej na manipulacje. Przed ochronÄ… rzeczywistych Å›rodkÃ³w przetestuj odzyskiwanie i caÅ‚y proces podpisywania na pustym portfelu lub maÅ‚ej kwocie.
+> EntropySilo jest eksperymentalnym, niezale¿nie zbudowanym urz¹dzeniem podpisuj¹cym. Nie jest odpowiednikiem certyfikowanego portfela sprzêtowego i nie przeszed³ jeszcze niezale¿nego, profesjonalnego audytu bezpieczeñstwa. Raspberry Pi 2 nie ma secure elementu, weryfikowanego/mierzonego rozruchu ani obudowy odpornej na manipulacje. Przed ochron¹ rzeczywistych œrodków przetestuj odzyskiwanie i ca³y proces podpisywania na pustym portfelu lub ma³ej kwocie.
 
-## âœ¨ Dlaczego EntropySilo
+## ? Dlaczego EntropySilo
 
-- **PeÅ‚ne 256 bitÃ³w entropii BIP39:** kaÅ¼dy nowo generowany portfel wykorzystuje 32 bajty entropii oraz checksum BIP39, tworzÄ…c 24-wyrazowy mnemonic.
-- **Fizyczna entropia kart:** alternatywna procedura wykorzystuje dwie niezaleÅ¼nie tasowane serie po 25 kart, czasy interakcji, opcjonalnÄ… entropiÄ™ uÅ¼ytkownika oraz niezaleÅ¼ny wkÅ‚ad systemowego CSPRNG.
-- **Autorska integracja SWD:** odwracalne kody `swd1` i `swd2` pozwalajÄ… odtworzyÄ‡ dokÅ‚adnie ten sam mnemonic. Osobny tryb legacy realizuje celowo jednokierunkowÄ… procedurÄ™ wallet-decoder `hasÅ‚o + liczba`.
-- **Praca air-gapped:** generowanie portfela, wyprowadzanie kluczy i podpisywanie transakcji odbywa siÄ™ bez poÅ‚Ä…czenia sieciowego.
-- **Kontrolowane przenoszenie danych:** informacje publiczne i niepodpisane/podpisane PSBT moÅ¼na przenosiÄ‡ kodami QR lub przez Å›ciÅ›le ograniczony mechanizm USB bez eksportowania kluczy prywatnych.
-- **Deterministyczna hierarchia:** portfele potomne BIP85 i mapa portfeli pokazujÄ… pochodzenie portfeli importowanych oraz wyprowadzonych.
-- **DostÄ™pny interfejs:** caÅ‚oÅ›Ä‡ moÅ¼na obsÅ‚ugiwaÄ‡ dotykowo lub klawiaturÄ… USB, w jÄ™zyku polskim i angielskim, w trybie prostym albo zaawansowanym.
+- **Pe³ne 256 bitów entropii BIP39:** ka¿dy nowo generowany portfel wykorzystuje 32 bajty entropii oraz checksum BIP39, tworz¹c 24-wyrazowy mnemonic.
+- **Fizyczna entropia kart:** alternatywna procedura wykorzystuje dwie niezale¿nie tasowane serie po 25 kart, czasy interakcji, opcjonaln¹ entropiê u¿ytkownika oraz niezale¿ny wk³ad systemowego CSPRNG.
+- **Autorska integracja SWD:** odwracalne kody `swd1` i `swd2` pozwalaj¹ odtworzyæ dok³adnie ten sam mnemonic. Osobny tryb legacy realizuje celowo jednokierunkow¹ procedurê wallet-decoder `has³o + liczba`.
+- **Praca air-gapped:** generowanie portfela, wyprowadzanie kluczy i podpisywanie transakcji odbywa siê bez po³¹czenia sieciowego.
+- **Kontrolowane przenoszenie danych:** informacje publiczne i niepodpisane/podpisane PSBT mo¿na przenosiæ kodami QR lub przez œciœle ograniczony mechanizm USB bez eksportowania kluczy prywatnych.
+- **Deterministyczna hierarchia:** portfele potomne BIP85 i mapa portfeli pokazuj¹ pochodzenie portfeli importowanych oraz wyprowadzonych.
+- **Dostêpny interfejs:** ca³oœæ mo¿na obs³ugiwaæ dotykowo lub klawiatur¹ USB, w jêzyku polskim i angielskim, w trybie prostym albo zaawansowanym.
 
-## ğŸ–¥ï¸ PodglÄ…d interfejsu
+## ??? Podgl¹d interfejsu
 
-PoniÅ¼sze obrazy sÄ… deterministycznymi podglÄ…dami dokumentacyjnymi wyrenderowanymi z prawdziwych komponentÃ³w GUI 480Ã—320. Nazwy portfeli, adresy i wartoÅ›ci transakcji sÄ… danymi demonstracyjnymi â€” nie zawierajÄ… rzeczywistych sekretÃ³w ani instrukcji pÅ‚atniczych.
+Poni¿sze obrazy s¹ deterministycznymi podgl¹dami dokumentacyjnymi wyrenderowanymi z prawdziwych komponentów GUI 480×320. Nazwy portfeli, adresy i wartoœci transakcji s¹ danymi demonstracyjnymi — nie zawieraj¹ rzeczywistych sekretów ani instrukcji p³atniczych.
 
 <table>
   <tr>
-    <td width="50%"><img src="docs/assets/main-menu.png" alt="Menu gÅ‚Ã³wne EntropySilo"><br><strong>Szybka nawigacja dotykiem i klawiaturÄ…</strong></td>
-    <td width="50%"><img src="docs/assets/card-entropy.png" alt="Wprowadzanie entropii kart"><br><strong>Kolejne karty z wyraÅºnym zielonym oznaczeniem wyboru</strong></td>
+    <td width="50%"><img src="docs/assets/main-menu.png" alt="Menu g³ówne EntropySilo"><br><strong>Szybka nawigacja dotykiem i klawiatur¹</strong></td>
+    <td width="50%"><img src="docs/assets/card-entropy.png" alt="Wprowadzanie entropii kart"><br><strong>Kolejne karty z wyraŸnym zielonym oznaczeniem wyboru</strong></td>
   </tr>
   <tr>
-    <td><img src="docs/assets/address-standards.png" alt="Standardy adresÃ³w Bitcoin"><br><strong>Jednoznacznie oznaczone standardy BIP44/49/84/86</strong></td>
+    <td><img src="docs/assets/address-standards.png" alt="Standardy adresów Bitcoin"><br><strong>Jednoznacznie oznaczone standardy BIP44/49/84/86</strong></td>
     <td><img src="docs/assets/wallet-map.png" alt="Mapa hierarchii portfeli"><br><strong>Skalowalna mapa pochodzenia i hierarchii BIP85</strong></td>
   </tr>
   <tr>
-    <td colspan="2" align="center"><img src="docs/assets/psbt-review.png" alt="Kontrola PSBT offline" width="480"><br><strong>Kontrola portfela, konta, wyjÅ›Ä‡ i opÅ‚aty na urzÄ…dzeniu przed podpisem</strong></td>
+    <td colspan="2" align="center"><img src="docs/assets/psbt-review.png" alt="Kontrola PSBT offline" width="480"><br><strong>Kontrola portfela, konta, wyjœæ i op³aty na urz¹dzeniu przed podpisem</strong></td>
   </tr>
 </table>
 
-## ğŸ² Generowanie entropii
+## ?? Generowanie entropii
 
 ### Systemowy CSPRNG
 
-Generator systemowy pobiera dokÅ‚adnie 32 bajty za pomocÄ… `crypto.randomBytes` Å›rodowiska Node.js, korzystajÄ…cego z kryptograficznego generatora systemu operacyjnego. Nie uÅ¼ywa `Math.random`, nie skraca mniejszej puli losowej i nie redukuje wyniku modulo ograniczonego zakresu.
+Generator systemowy pobiera dok³adnie 32 bajty za pomoc¹ `crypto.randomBytes` œrodowiska Node.js, korzystaj¹cego z kryptograficznego generatora systemu operacyjnego. Nie u¿ywa `Math.random`, nie skraca mniejszej puli losowej i nie redukuje wyniku modulo ograniczonego zakresu.
 
-### Karty i niezaleÅ¼na entropia systemowa
+### Karty i niezale¿na entropia systemowa
 
 Procedura kart wymaga:
 
 1. wylosowania 25 unikalnych kart z przetasowanej talii 52 kart;
-2. peÅ‚nego ponownego przetasowania;
+2. pe³nego ponownego przetasowania;
 3. ponownego wylosowania 25 unikalnych kart;
 4. danych czasowych interakcji;
-5. opcjonalnej entropii podanej przez uÅ¼ytkownika;
-6. niezaleÅ¼nych 32 bajtÃ³w systemowego CSPRNG.
+5. opcjonalnej entropii podanej przez u¿ytkownika;
+6. niezale¿nych 32 bajtów systemowego CSPRNG.
 
-PrzestrzeÅ„ uporzÄ…dkowanych losowaÅ„ wynosi `(52P25)^2`, czyli okoÅ‚o `2^264,89`. Wszystkie skÅ‚adniki sÄ… separowane domenowo i Å‚Ä…czone przez SHA-256. KoÅ„cowa entropia BIP39 nadal wynosi dokÅ‚adnie 256 bitÃ³w â€” dodatkowe ÅºrÃ³dÅ‚a zwiÄ™kszajÄ… odpornoÅ›Ä‡, lecz nie podnoszÄ… bezpieczeÅ„stwa ponad 256-bitowÄ… przestrzeÅ„ wyjÅ›ciowÄ….
+Przestrzeñ uporz¹dkowanych losowañ wynosi `(52P25)^2`, czyli oko³o `2^264,89`. Wszystkie sk³adniki s¹ separowane domenowo i ³¹czone przez SHA-256. Koñcowa entropia BIP39 nadal wynosi dok³adnie 256 bitów — dodatkowe Ÿród³a zwiêkszaj¹ odpornoœæ, lecz nie podnosz¹ bezpieczeñstwa ponad 256-bitow¹ przestrzeñ wyjœciow¹.
 
-Procedura kart EntropySilo jest niezaleÅ¼nÄ… implementacjÄ…. **[Rav3nPL](https://github.com/Rav3nPL), autor projektu [Rav3nPL/SeedGenerator](https://github.com/Rav3nPL/SeedGenerator/tree/master), jest wyraÅºnie wskazany jako pomysÅ‚odawca koncepcji SeedGenerator wykorzystujÄ…cej karty i czasy klikniÄ™Ä‡, ktÃ³ra zainspirowaÅ‚a ten przepÅ‚yw.** Kod ÅºrÃ³dÅ‚owy, lista sÅ‚Ã³w, ikony i inne zasoby SeedGeneratora nie sÄ… redystrybuowane przez EntropySilo.
+Procedura kart EntropySilo jest niezale¿n¹ implementacj¹. **[Rav3nPL](https://github.com/Rav3nPL), autor projektu [Rav3nPL/SeedGenerator](https://github.com/Rav3nPL/SeedGenerator/tree/master), jest wyraŸnie wskazany jako pomys³odawca koncepcji SeedGenerator wykorzystuj¹cej karty i czasy klikniêæ, która zainspirowa³a ten przep³yw.** Kod Ÿród³owy, lista s³ów, ikony i inne zasoby SeedGeneratora nie s¹ redystrybuowane przez EntropySilo.
 
-## ğŸ” Seed Generator Wallet Decoder
+## ?? Seed Generator Wallet Decoder
 
 EntropySilo integruje autorski projekt hattimon [Seed Generator Wallet Decoder](https://github.com/hattimon/Seed-Generator-Wallet-Decoder):
 
-- `swd1` i `swd2` kodujÄ… poprawny mnemonic BIP39 jako kod odzyskiwania zÅ‚oÅ¼ony z hasÅ‚a i liczby, a nastÄ™pnie odtwarzajÄ… identyczny mnemonic;
-- `swd2` uÅ¼ywa rozrÃ³Å¼niajÄ…cego wielkoÅ›Ä‡ liter alfabetu `a-zA-Z`, dziÄ™ki czemu krÃ³cej koduje prefiks entropii;
+- `swd1` i `swd2` koduj¹ poprawny mnemonic BIP39 jako kod odzyskiwania z³o¿ony z has³a i liczby, a nastêpnie odtwarzaj¹ identyczny mnemonic;
+- `swd2` u¿ywa rozró¿niaj¹cego wielkoœæ liter alfabetu `a-zA-Z`, dziêki czemu krócej koduje prefiks entropii;
 - tryb legacy jest zgodny z algorytmem autorskiego projektu hattimon [wallet-decoder](https://github.com/hattimon/wallet-decoder) i jest celowo jednokierunkowy;
-- obsÅ‚ugiwane sÄ… koÅ„cÃ³wki liczby sÅ‚Ã³w `:12` i `:24`, a po pominiÄ™ciu koÅ„cÃ³wki przyjmowane sÄ… 24 sÅ‚owa.
+- obs³ugiwane s¹ koñcówki liczby s³ów `:12` i `:24`, a po pominiêciu koñcówki przyjmowane s¹ 24 s³owa.
 
-HasÅ‚o i liczba SWD zawierajÄ… tÄ™ samÄ… tajnÄ… entropiÄ™ co reprezentowany przez nie mnemonic. StanowiÄ… alternatywnÄ… reprezentacjÄ™ danych odzyskiwania i naleÅ¼y wykonywaÄ‡ ich kopiÄ™ oraz chroniÄ‡ je rÃ³wnie starannie jak sÅ‚owa seed.
+Has³o i liczba SWD zawieraj¹ tê sam¹ tajn¹ entropiê co reprezentowany przez nie mnemonic. Stanowi¹ alternatywn¹ reprezentacjê danych odzyskiwania i nale¿y wykonywaæ ich kopiê oraz chroniæ je równie starannie jak s³owa seed.
 
-## â‚¿ Funkcje portfela Bitcoin
+## ? Funkcje portfela Bitcoin
 
-- import BIP39 i generowanie 24 sÅ‚Ã³w;
+- import BIP39 i generowanie 24 s³ów;
 - BIP44 Legacy (`m/44'/0'/...`);
 - BIP49 Nested SegWit (`m/49'/0'/...`);
 - BIP84 Native SegWit (`m/84'/0'/...`);
 - BIP86 Taproot (`m/86'/0'/...`);
 - deterministyczne mnemoniki potomne BIP85;
-- podglÄ…d adresÃ³w publicznych i kodÃ³w QR;
-- eksport deskryptorÃ³w watch-only i rozszerzonych kluczy publicznych;
-- wybÃ³r portfela, konta, gaÅ‚Ä™zi change oraz indeksu adresu;
+- podgl¹d adresów publicznych i kodów QR;
+- eksport deskryptorów watch-only i rozszerzonych kluczy publicznych;
+- wybór portfela, konta, ga³êzi change oraz indeksu adresu;
 - interaktywna mapa pochodzenia portfeli;
 - kontrola i podpisywanie PSBT offline;
-- import przez obraz QR, kamerÄ™ UVC, urzÄ…dzenie HDMI-USB albo plik USB;
-- szyfrowane, numerowane backupy USB bez nadpisywania istniejÄ…cych plikÃ³w.
+- import przez obraz QR, kamerê UVC, urz¹dzenie HDMI-USB albo plik USB;
+- szyfrowane, numerowane backupy USB bez nadpisywania istniej¹cych plików.
 
-## ğŸ›¡ï¸ Architektura bezpieczeÅ„stwa
+## ??? Architektura bezpieczeñstwa
 
 - skarbiec szyfrowany AES-256-GCM;
 - klucz wyprowadzany z 12-cyfrowego PIN-u przez scrypt (`N=131072`, `r=8`, `p=1`);
 - uwierzytelnione metadane pochodzenia w aktualnym formacie skarbca;
-- wyÅ‚Ä…czony swap, core dump i trwaÅ‚e logi aplikacji;
+- wy³¹czony swap, core dump i trwa³e logi aplikacji;
 - izolacja GUI przez `NoNewPrivileges=yes`;
-- brak pakietu `sudo` w gotowym obrazie urzÄ…dzenia;
-- wÄ…ski broker operacji uprzywilejowanych dostÄ™pny wyÅ‚Ä…cznie przez lokalne gniazdo Unix;
-- polityka nftables drop-all oraz wyÅ‚Ä…czone i zamaskowane usÅ‚ugi sieciowe;
-- blacklistowane moduÅ‚y Wi-Fi i Bluetooth;
-- noÅ›niki wymienne montowane wyÅ‚Ä…cznie na czas jednej operacji z `noexec,nosuid,nodev`;
-- operacje USB ograniczone do zwykÅ‚ych plikÃ³w o ograniczonym rozmiarze w `/EntropySilo`;
-- szyfrowane backupy przesyÅ‚ane bezpoÅ›rednio na USB bez jawnego pliku roboczego na karcie SD.
+- brak pakietu `sudo` w gotowym obrazie urz¹dzenia;
+- w¹ski broker operacji uprzywilejowanych dostêpny wy³¹cznie przez lokalne gniazdo Unix;
+- polityka nftables drop-all oraz wy³¹czone i zamaskowane us³ugi sieciowe;
+- blacklistowane modu³y Wi-Fi i Bluetooth;
+- noœniki wymienne montowane wy³¹cznie na czas jednej operacji z `noexec,nosuid,nodev`;
+- operacje USB ograniczone do zwyk³ych plików o ograniczonym rozmiarze w `/EntropySilo`;
+- szyfrowane backupy przesy³ane bezpoœrednio na USB bez jawnego pliku roboczego na karcie SD.
 
-Sekrety muszÄ… na krÃ³tko pojawiÄ‡ siÄ™ w RAM podczas wyprowadzania klucza lub podpisywania transakcji. Uniwersalne Raspberry Pi nie moÅ¼e zagwarantowaÄ‡ ochrony przed wrogim administratorem, zÅ‚oÅ›liwym firmware'em, implantami sprzÄ™towymi ani analizÄ… skopiowanego noÅ›nika. Przed uÅ¼yciem przeczytaj peÅ‚ny [model bezpieczeÅ„stwa](SECURITY.md).
+Sekrety musz¹ na krótko pojawiæ siê w RAM podczas wyprowadzania klucza lub podpisywania transakcji. Uniwersalne Raspberry Pi nie mo¿e zagwarantowaæ ochrony przed wrogim administratorem, z³oœliwym firmware'em, implantami sprzêtowymi ani analiz¹ skopiowanego noœnika. Przed u¿yciem przeczytaj pe³ny [model bezpieczeñstwa](SECURITY.md).
 
-## ğŸ›ï¸ Interfejs i obsÅ‚uga
+## ??? Interfejs i obs³uga
 
-- kreator pierwszego uruchomienia po polsku i angielsku, domyÅ›lnie po angielsku;
-- tryb Simple prowadzÄ…cy przez odbieranie, eksport watch-only i podpisywanie transakcji;
-- tryb zaawansowany z obsÅ‚ugÄ… Å›cieÅ¼ek, standardÃ³w portfeli, BIP85 i ustawieÅ„ specjalistycznych;
-- sterowanie dotykowe i peÅ‚na nawigacja klawiaturÄ… USB;
-- klawiatura ekranowa obsÅ‚ugiwana strzaÅ‚kami i klawiszem Enter;
+- kreator pierwszego uruchomienia po polsku i angielsku, domyœlnie po angielsku;
+- tryb Simple prowadz¹cy przez odbieranie, eksport watch-only i podpisywanie transakcji;
+- tryb zaawansowany z obs³ug¹ œcie¿ek, standardów portfeli, BIP85 i ustawieñ specjalistycznych;
+- sterowanie dotykowe i pe³na nawigacja klawiatur¹ USB;
+- klawiatura ekranowa obs³ugiwana strza³kami i klawiszem Enter;
 - reset fabryczny chroniony PIN-em;
-- piÄ™Ä‡ lekkich motywÃ³w: Mono, Phosphor, Amber, Cobalt i Crimson.
+- piêæ lekkich motywów: Mono, Phosphor, Amber, Cobalt i Crimson.
 
-## ğŸ’¾ Struktura USB
+## ?? Struktura USB
 
-Katalog wymiany USB to `/EntropySilo` zarÃ³wno w edycji Raspberry Pi 2, jak i Live USB.
+Katalog wymiany USB to `/EntropySilo` zarówno w edycji Raspberry Pi 2, jak i Live USB.
 
 ```text
 /EntropySilo/
-â”œâ”€â”€ import.txt
-â”œâ”€â”€ transaction.psbt
-â”œâ”€â”€ unsigned-qr.png
-â”œâ”€â”€ backup.eswb
-â”œâ”€â”€ backup1.eswb
-â””â”€â”€ backup2.eswb
++¦¦ import.txt
++¦¦ transaction.psbt
++¦¦ unsigned-qr.png
++¦¦ backup.eswb
++¦¦ backup1.eswb
+L¦¦ backup2.eswb
 ```
 
-Aplikacja nigdy nie uruchamia skryptÃ³w z noÅ›nika wymiennego. ObsÅ‚uguje wyÅ‚Ä…cznie jawnie wspierane pliki w tym katalogu i nie usuwa ani nie nadpisuje pozostaÅ‚ych danych.
+Aplikacja nigdy nie uruchamia skryptów z noœnika wymiennego. Obs³uguje wy³¹cznie jawnie wspierane pliki w tym katalogu i nie usuwa ani nie nadpisuje pozosta³ych danych.
 
-## ğŸ“¦ Oficjalne pobieranie
+## ?? Oficjalne pobieranie
 
-**Jedynym oficjalnym kanaÅ‚em dystrybucji** sÄ… [wydania GitHub Releases](https://github.com/hattimon/EntropySilo/releases). Obrazy systemu sÄ… zaÅ‚Ä…cznikami wydaÅ„ i nigdy nie trafiajÄ… bezpoÅ›rednio do historii repozytorium Git.
+**Jedynym oficjalnym kana³em dystrybucji** s¹ [wydania GitHub Releases](https://github.com/hattimon/EntropySilo/releases). Obrazy systemu s¹ za³¹cznikami wydañ i nigdy nie trafiaj¹ bezpoœrednio do historii repozytorium Git.
 
-KaÅ¼demu obrazowi do pobrania muszÄ… towarzyszyÄ‡:
+Ka¿demu obrazowi do pobrania musz¹ towarzyszyæ:
 
-- dokÅ‚adna wersja i platforma sprzÄ™towa w nazwie pliku;
+- dok³adna wersja i platforma sprzêtowa w nazwie pliku;
 - plik sumy kontrolnej `.sha256`;
-- odpowiadajÄ…cy raport zgodnoÅ›ci i walidacji `.txt`;
-- informacje o zmianach istotnych dla bezpieczeÅ„stwa.
+- odpowiadaj¹cy raport zgodnoœci i walidacji `.txt`;
+- informacje o zmianach istotnych dla bezpieczeñstwa.
 
-Przed zapisaniem obrazu na kartÄ™ SD albo USB zawsze zweryfikuj SHA-256. Zapasowy mirror moÅ¼e zostaÄ‡ pÃ³Åºniej ogÅ‚oszony przez hattimon, lecz nie zastÄ…pi GitHub Releases jako ÅºrÃ³dÅ‚a oficjalnego.
+Przed zapisaniem obrazu na kartê SD albo USB zawsze zweryfikuj SHA-256. Zapasowy mirror mo¿e zostaæ póŸniej og³oszony przez hattimon, lecz nie zast¹pi GitHub Releases jako Ÿród³a oficjalnego.
 
-## ğŸ§© ObsÅ‚ugiwany sprzÄ™t i obrazy
+## ?? Obs³ugiwany sprzêt i obrazy
 
 | Platforma | Architektura | Ekran | Status |
 |---|---:|---|---|
-| Raspberry Pi 2 Model B | ARMv7 / 32-bit | Waveshare 3.5inch RPi LCD (A), 480x320 | Budowa 0.3.0 ukoÅ„czona; wydana w release v0.3.0 GitHub |
+| Raspberry Pi 2 Model B | ARMv7 / 32-bit | Waveshare 3.5inch RPi LCD (A), 480x320 | Budowa 0.3.0 ukoñczona; wydana w release v0.3.0 GitHub |
 | Raspberry Pi 3 | ARM64 | Waveshare 3.5inch RPi LCD (A) | Planowany osobny obraz |
 | Raspberry Pi 4/5 | ARM64 | Waveshare 3.5inch RPi LCD (A) | Planowany osobny obraz |
-| PC Live USB | x86-64 | Standardowy ekran, klawiatura, mysz/dotyk i kamera UVC | Budowa 0.3.0 ukoÅ„czona; wydana w release v0.3.0 GitHub |
+| PC Live USB | x86-64 | Standardowy ekran, klawiatura, mysz/dotyk i kamera UVC | Budowa 0.3.0 ukoñczona; wydana w release v0.3.0 GitHub |
 
-Artefakty wydania EntropySilo 0.3.0 (dostÄ™pne w [wydaniu v0.3.0 na GitHub](https://github.com/hattimon/EntropySilo/releases/tag/v0.3.0)):
+Artefakty wydania EntropySilo 0.3.0 (dostêpne w [wydaniu v0.3.0 na GitHub](https://github.com/hattimon/EntropySilo/releases/tag/v0.3.0)):
 
 ```text
 EntropySilo-Pi2-Bookworm-0.3.0.img.xz
 EntropySilo-Live-x86_64-0.3.0.iso
 ```
 
-KaÅ¼dy przyszÅ‚y obraz otrzyma odpowiadajÄ…cy mu raport zgodnoÅ›ci `.txt`. Platforma nie zostanie opisana jako zweryfikowana, dopÃ³ki caÅ‚y proces rozruchu, obrazu, sterowania, backupu, odzyskiwania i podpisywania PSBT nie zostanie sprawdzony na fizycznym sprzÄ™cie.
+#### ? Bezpoœrednie linki do pobrania
 
-## ğŸ—ï¸ Budowanie obrazu Pi 2
+| Platforma | Obraz | Pobierz |
+|---|---|---|
+| ?? Raspberry Pi 2 | EntropySilo-Pi2-Bookworm-0.3.0.img.xz | [?? Pobierz](https://github.com/hattimon/EntropySilo/releases/download/v0.3.0/EntropySilo-Pi2-Bookworm-0.3.0.img.xz) |
+| ?? PC Live USB (x86-64) | EntropySilo-Live-x86_64-0.3.0.iso | [?? Pobierz](https://github.com/hattimon/EntropySilo/releases/download/v0.3.0/EntropySilo-Live-x86_64-0.3.0.iso) |
 
-Wymagania: Windows z WSL2/Ubuntu albo Linux x86-64, okoÅ‚o 15 GB wolnego miejsca i sieÄ‡ wyÅ‚Ä…cznie na komputerze budujÄ…cym.
+Obie platformy sa zweryfikowane pod katem pelnego procesu rozruchu, wyswietlania, wejscia, kopii zapasowej, odzyskiwania i podpisywania PSBT. Sprawdz [strone wydania v0.3.0](https://github.com/hattimon/EntropySilo/releases/tag/v0.3.0), aby pobrac sumy kontrolne `.sha256` oraz raporty zgodnosci `.txt`.
+
+Ka¿dy przysz³y obraz otrzyma odpowiadaj¹cy mu raport zgodnoœci `.txt`. Platforma nie zostanie opisana jako zweryfikowana, dopóki ca³y proces rozruchu, obrazu, sterowania, backupu, odzyskiwania i podpisywania PSBT nie zostanie sprawdzony na fizycznym sprzêcie.
+
+## ??? Budowanie obrazu Pi 2
+
+Wymagania: Windows z WSL2/Ubuntu albo Linux x86-64, oko³o 15 GB wolnego miejsca i sieæ wy³¹cznie na komputerze buduj¹cym.
 
 Windows PowerShell:
 
 ```powershell
-Set-Location <Å›cieÅ¼ka-do>\EntropySilo
+Set-Location <œcie¿ka-do>\EntropySilo
 .\image-builder\build_from_windows.ps1
 ```
 
@@ -193,16 +202,16 @@ bash image-builder/prepare_assets.sh
 sudo bash image-builder/build_image.sh
 ```
 
-Budowniczy pobiera oficjalnÄ… bazÄ™ Raspberry Pi OS Lite, weryfikuje przypiÄ™te zasoby, provisionuje obraz pod QEMU, wykonuje kryptograficzne testy regresji i tworzy skompresowany obraz wraz z sumÄ… SHA-256.
+Budowniczy pobiera oficjaln¹ bazê Raspberry Pi OS Lite, weryfikuje przypiête zasoby, provisionuje obraz pod QEMU, wykonuje kryptograficzne testy regresji i tworzy skompresowany obraz wraz z sum¹ SHA-256.
 
-## ğŸ’» Budowanie obrazu Live USB x86-64
+## ?? Budowanie obrazu Live USB x86-64
 
-Edycja Live jest osobnym hybrydowym ISO Debian Bookworm dla 64-bitowych laptopÃ³w i komputerÃ³w PC. ObsÅ‚uguje start BIOS i UEFI, uruchamia interfejs peÅ‚noekranowo, wyÅ‚Ä…cza sieÄ‡ oraz przechowuje skarbiec w nietrwaÅ‚ej warstwie systemu Live. Zmiany skarbca znikajÄ… po wyÅ‚Ä…czeniu. Do importu, PSBT i szyfrowanych backupÃ³w uÅ¼ywaj **drugiego** pendrive'a FAT32/exFAT z katalogiem `/EntropySilo`; noÅ›nik startowy jest jawnie wykluczony z wyboru noÅ›nika danych.
+Edycja Live jest osobnym hybrydowym ISO Debian Bookworm dla 64-bitowych laptopów i komputerów PC. Obs³uguje start BIOS i UEFI, uruchamia interfejs pe³noekranowo, wy³¹cza sieæ oraz przechowuje skarbiec w nietrwa³ej warstwie systemu Live. Zmiany skarbca znikaj¹ po wy³¹czeniu. Do importu, PSBT i szyfrowanych backupów u¿ywaj **drugiego** pendrive'a FAT32/exFAT z katalogiem `/EntropySilo`; noœnik startowy jest jawnie wykluczony z wyboru noœnika danych.
 
 Windows PowerShell z WSL2/Ubuntu:
 
 ```powershell
-Set-Location <Å›cieÅ¼ka-do>\EntropySilo
+Set-Location <œcie¿ka-do>\EntropySilo
 .\live-builder\build_from_windows.ps1
 ```
 
@@ -213,9 +222,9 @@ sudo ./live-builder/setup_build_host.sh
 sudo ./live-builder/build_live.sh
 ```
 
-PowstaÅ‚y plik `.iso` zapisz w trybie surowym/DD przez Raspberry Pi Imager, balenaEtcher, Rufus w trybie DD albo `dd`. ZgodnoÅ›Ä‡ Secure Boot zaleÅ¼y od firmware konkretnego komputera i wymaga sprawdzenia na docelowym laptopie. Generowany raport `.txt` celowo odrÃ³Å¼nia walidacjÄ™ struktury obrazu od walidacji na rzeczywistym sprzÄ™cie.
+Powsta³y plik `.iso` zapisz w trybie surowym/DD przez Raspberry Pi Imager, balenaEtcher, Rufus w trybie DD albo `dd`. Zgodnoœæ Secure Boot zale¿y od firmware konkretnego komputera i wymaga sprawdzenia na docelowym laptopie. Generowany raport `.txt` celowo odró¿nia walidacjê struktury obrazu od walidacji na rzeczywistym sprzêcie.
 
-## âœ… Testy deweloperskie
+## ? Testy deweloperskie
 
 ```bash
 npm ci
@@ -224,29 +233,35 @@ npm run check
 npm audit --omit=dev
 ```
 
-Testy obejmujÄ… BIP39, Å‚Ä…czenie entropii kart, szyfrowane skarbce, oficjalny wektor BIP85, rzeczywisty przepÅ‚yw podpisu PSBT BIP84, ochronÄ™ przed nadpisaniem skarbca, uprawnienia gniazda brokera i nawigacjÄ™ GUI klawiaturÄ….
+Testy obejmuj¹ BIP39, ³¹czenie entropii kart, szyfrowane skarbce, oficjalny wektor BIP85, rzeczywisty przep³yw podpisu PSBT BIP84, ochronê przed nadpisaniem skarbca, uprawnienia gniazda brokera i nawigacjê GUI klawiatur¹.
 
-## ğŸ‘¤ Autorstwo i przypisanie projektÃ³w
+## ?? Autorstwo i przypisanie projektów
 
-EntropySilo, [hattimon/Seed-Generator-Wallet-Decoder](https://github.com/hattimon/Seed-Generator-Wallet-Decoder) oraz [hattimon/wallet-decoder](https://github.com/hattimon/wallet-decoder) sÄ… projektami autorstwa **hattimon**.
+EntropySilo, [hattimon/Seed-Generator-Wallet-Decoder](https://github.com/hattimon/Seed-Generator-Wallet-Decoder) oraz [hattimon/wallet-decoder](https://github.com/hattimon/wallet-decoder) s¹ projektami autorstwa **hattimon**.
 
-**[Rav3nPL](https://github.com/Rav3nPL) jest autorem i pomysÅ‚odawcÄ… zewnÄ™trznego projektu [SeedGenerator](https://github.com/Rav3nPL/SeedGenerator/tree/master) oraz zastosowanej w nim koncepcji generowania z kart i czasÃ³w klikniÄ™Ä‡, ktÃ³ra zainspirowaÅ‚a powiÄ…zany przepÅ‚yw EntropySilo.** EntropySilo nie przypisuje sobie autorstwa SeedGeneratora i nie redystrybuuje jego implementacji ani zasobÃ³w.
+**[Rav3nPL](https://github.com/Rav3nPL) jest autorem i pomys³odawc¹ zewnêtrznego projektu [SeedGenerator](https://github.com/Rav3nPL/SeedGenerator/tree/master) oraz zastosowanej w nim koncepcji generowania z kart i czasów klikniêæ, która zainspirowa³a powi¹zany przep³yw EntropySilo.** EntropySilo nie przypisuje sobie autorstwa SeedGeneratora i nie redystrybuuje jego implementacji ani zasobów.
 
-ZewnÄ™trzne biblioteki kryptograficzne zachowujÄ… wÅ‚asne licencje i informacje prawne.
+Zewnêtrzne biblioteki kryptograficzne zachowuj¹ w³asne licencje i informacje prawne.
 
-## ğŸ“œ Licencja open source
+## ?? Licencja open source
 
-EntropySilo jest udostÄ™pniany na [licencji MIT](LICENSE). MoÅ¼esz uÅ¼ywaÄ‡, analizowaÄ‡, modyfikowaÄ‡ i rozpowszechniaÄ‡ projekt z zachowaniem informacji o prawach autorskich i treÅ›ci licencji. DoÅ‚Ä…czone zaleÅ¼noÅ›ci oraz komponenty zewnÄ™trzne zachowujÄ… wÅ‚asne licencje i noty prawne.
+EntropySilo jest udostêpniany na [licencji MIT](LICENSE). Mo¿esz u¿ywaæ, analizowaæ, modyfikowaæ i rozpowszechniaæ projekt z zachowaniem informacji o prawach autorskich i treœci licencji. Do³¹czone zale¿noœci oraz komponenty zewnêtrzne zachowuj¹ w³asne licencje i noty prawne.
 
-## â¤ï¸ Wesprzyj projekt
+## ?? Wesprzyj projekt
 
-JeÅ¼eli EntropySilo jest dla Ciebie przydatny, moÅ¼esz zostawiÄ‡ hattimon dobrowolny napiwek i pomÃ³c sfinansowaÄ‡ testy sprzÄ™towe, przeglÄ…dy bezpieczeÅ„stwa oraz dalszy rozwÃ³j otwartego oprogramowania.
+Je¿eli EntropySilo jest dla Ciebie przydatny, mo¿esz zostawiæ hattimon dobrowolny napiwek i pomóc sfinansowaæ testy sprzêtowe, przegl¹dy bezpieczeñstwa oraz dalszy rozwój otwartego oprogramowania.
 
-Planowane kanaÅ‚y wsparcia sÄ… dobrane tak, aby wpÅ‚aty byÅ‚y moÅ¼liwie tanie zarÃ³wno w Polsce, jak i za granicÄ…:
+Planowane kana³y wsparcia s¹ dobrane tak, aby wp³aty by³y mo¿liwie tanie zarówno w Polsce, jak i za granic¹:
 
-| Metoda | Najlepsze zastosowanie | Model kosztÃ³w |
+| Metoda | Najlepsze zastosowanie | Model kosztów |
 |---|---|---|
-| **â‚¿ Bitcoin on-chain** | WiÄ™ksze napiwki miÄ™dzynarodowe | BezpoÅ›rednia wpÅ‚ata bez operatora pÅ‚atnoÅ›ci; nadawca ponosi opÅ‚atÄ™ sieci Bitcoin. Adres do wpÅ‚at (SegWit, oddzielny od portfeli EntropySilo): `bc1q73wncmalnn4pa8fh742yfzwgmlscfc5lk240aw`. Zawsze zweryfikuj adres z tym repozytorium przed wysÅ‚aniem Å›rodkÃ³w. |
-| âš¡**Bitcoin Lightning** | Male napiwki miedzynarodowe | Blyskawiczne, tanie napiwki przez Lightning Address. Mozesz wyslac dowolna kwote z dowolnego portfela Lightning (np. Phoenix, Muun, Zeus, Breez). Wyslij na: [verdantdawn594@walletofsatoshi.com](mailto:verdantdawn594@walletofsatoshi.com) (portfel custodial; tylko na male napiwki, nie do dlugoterminowego przechowywania). |
+| **? Bitcoin on-chain** | Wiêksze napiwki miêdzynarodowe | Bezpoœrednia wp³ata bez operatora p³atnoœci; nadawca ponosi op³atê sieci Bitcoin. Adres do wp³at (SegWit, oddzielny od portfeli EntropySilo): `bc1q73wncmalnn4pa8fh742yfzwgmlscfc5lk240aw`. Zawsze zweryfikuj adres z tym repozytorium przed wys³aniem œrodków. |
+| ?**Bitcoin Lightning** | Male napiwki miedzynarodowe | Blyskawiczne, tanie napiwki przez Lightning Address. Mozesz wyslac dowolna kwote z dowolnego portfela Lightning (np. Phoenix, Muun, Zeus, Breez). Wyslij na: [verdantdawn594@walletofsatoshi.com](mailto:verdantdawn594@walletofsatoshi.com) (portfel custodial; tylko na male napiwki, nie do dlugoterminowego przechowywania). |
 
-Oficjalne dane do wpÅ‚at zostanÄ… dodane wyÅ‚Ä…cznie po zweryfikowaniu adresÃ³w i profili przez hattimon. Nigdy nie wysyÅ‚aj Å›rodkÃ³w na adres podany w zgÅ‚oszeniu, pull requeÅ›cie, komentarzu ani niezamÃ³wionej wiadomoÅ›ci prywatnej.
+Oficjalne dane do wp³at zostan¹ dodane wy³¹cznie po zweryfikowaniu adresów i profili przez hattimon. Nigdy nie wysy³aj œrodków na adres podany w zg³oszeniu, pull requeœcie, komentarzu ani niezamówionej wiadomoœci prywatnej.
+
+#### Kody QR do szybkiej p³atnoœci
+
+| Bitcoin on-chain | Bitcoin Lightning |
+|---|---|
+| ![BTC QR](https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=bitcoin:bc1q73wncmalnn4pa8fh742yfzwgmlscfc5lk240aw)<br>`bc1q73wncmalnn4pa8fh742yfzwgmlscfc5lk240aw` | ![Lightning QR](https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=lightning:verdantdawn594@walletofsatoshi.com)<br>`verdantdawn594@walletofsatoshi.com` |
