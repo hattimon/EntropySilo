@@ -1,4 +1,4 @@
-**Language:** [🇬🇧 English](README.md) | [🇵🇱 Polski](README.pl.md)
+**Language:** [English](README.md) | [Polski](README.pl.md)
 
 <p align="center">
   <img src="docs/assets/entropy-silo-logo.svg" alt="EntropySilo — Offline Bitcoin Seed Workstation" width="820">
@@ -177,7 +177,7 @@ EntropySilo-Live-x86_64-0.3.0.iso
 
 | Platform | Image | Download |
 |---|---|---|
-| 🎓 Raspberry Pi 2 | EntropySilo-Pi2-Bookworm-0.3.0.img.xz | [⬇️ Download](https://github.com/hattimon/EntropySilo/releases/download/v0.3.0/EntropySilo-Pi2-Bookworm-0.3.0.img.xz) |
+| 🔌 Raspberry Pi 2 | EntropySilo-Pi2-Bookworm-0.3.0.img.xz | [⬇️ Download](https://github.com/hattimon/EntropySilo/releases/download/v0.3.0/EntropySilo-Pi2-Bookworm-0.3.0.img.xz) |
 | 💻 PC Live USB (x86-64) | EntropySilo-Live-x86_64-0.3.0.iso | [⬇️ Download](https://github.com/hattimon/EntropySilo/releases/download/v0.3.0/EntropySilo-Live-x86_64-0.3.0.iso) |
 
 Both platforms are validated for the complete boot, display, input, backup, recovery and PSBT-signing workflow. See the [v0.3.0 release page](https://github.com/hattimon/EntropySilo/releases/tag/v0.3.0) for `.sha256` checksums and `.txt` compatibility reports.
