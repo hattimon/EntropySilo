@@ -1,4 +1,4 @@
-**Language:** [???? English](README.md) | [???? Polski](README.pl.md)
+**Language:** [🇬🇧 English](README.md) | [🇵🇱 Polski](README.pl.md)
 
 <p align="center">
   <img src="docs/assets/entropy-silo-logo.svg" alt="EntropySilo — Offline Bitcoin Seed Workstation" width="820">
@@ -25,7 +25,7 @@ EntropySilo provides separate build targets for Raspberry Pi 2 Model B with the 
 > [!WARNING]
 > EntropySilo is an experimental, independently built signer. It is not equivalent to a certified hardware wallet and has not yet undergone an independent professional security audit. Raspberry Pi 2 has no secure element, verified/measured boot or tamper-resistant enclosure. Test recovery and the complete signing workflow with an empty wallet or a small amount before protecting real funds.
 
-## ? Why EntropySilo
+## 🔐 Why EntropySilo
 
 - **Full 256-bit BIP39 entropy:** every newly generated wallet uses 32 bytes of entropy followed by the BIP39 checksum, producing a 24-word mnemonic.
 - **Physical card entropy:** an alternative workflow uses two independently shuffled 25-card draws, interaction timing, optional user-provided entropy and an independent operating-system CSPRNG contribution.
@@ -35,7 +35,7 @@ EntropySilo provides separate build targets for Raspberry Pi 2 Model B with the 
 - **Deterministic wallet hierarchy:** BIP85 child wallets and the wallet map make the origin of imported and derived wallets visible.
 - **Accessible interface:** the complete interface supports touch and USB keyboard navigation, with Polish and English language modes and both Simple and Advanced workflows.
 
-## ??? Interface preview
+## 🖥️ Interface preview
 
 The images below are deterministic documentation previews rendered from the real 480×320 GUI components. Wallet names, addresses and transaction values are demonstration data—not live secrets or real payment instructions.
 
@@ -53,7 +53,7 @@ The images below are deterministic documentation previews rendered from the real
   </tr>
 </table>
 
-## ?? Entropy generation
+## 🎲 Entropy generation
 
 ### System CSPRNG
 
@@ -74,7 +74,7 @@ The ordered card space is `(52P25)^2`, approximately `2^264.89`. All inputs are 
 
 The EntropySilo card workflow is an independent implementation. **[Rav3nPL](https://github.com/Rav3nPL), author of [Rav3nPL/SeedGenerator](https://github.com/Rav3nPL/SeedGenerator/tree/master), is explicitly credited as the originator of the SeedGenerator card- and click-timing concept that inspired this workflow.** SeedGenerator source code, wordlist, icons and assets are not redistributed by EntropySilo.
 
-## ?? Seed Generator Wallet Decoder
+## 🔑 Seed Generator Wallet Decoder
 
 EntropySilo integrates hattimon's first-party [Seed Generator Wallet Decoder](https://github.com/hattimon/Seed-Generator-Wallet-Decoder):
 
@@ -85,7 +85,7 @@ EntropySilo integrates hattimon's first-party [Seed Generator Wallet Decoder](ht
 
 An SWD password and number contain the same secret entropy as the mnemonic they represent. They are an alternative recovery representation and must be backed up and protected with the same care as seed words.
 
-## ? Bitcoin wallet capabilities
+## ₿ Bitcoin wallet capabilities
 
 - BIP39 import and 24-word generation;
 - BIP44 Legacy (`m/44'/0'/...`);
@@ -101,7 +101,7 @@ An SWD password and number contain the same secret entropy as the mnemonic they 
 - QR image, UVC camera, HDMI-to-USB capture and USB-file import;
 - encrypted, numbered USB backups without overwriting existing files.
 
-## ??? Security architecture
+## 🔒 Security architecture
 
 - AES-256-GCM encrypted vault;
 - key derivation from a 12-digit PIN using scrypt (`N=131072`, `r=8`, `p=1`);
@@ -118,7 +118,7 @@ An SWD password and number contain the same secret entropy as the mnemonic they 
 
 Secrets must briefly exist in RAM while a key is derived or a transaction is signed. No general-purpose Raspberry Pi can guarantee protection against a hostile administrator, compromised firmware, physical implants or forensic attacks against copied storage. Read the full [security model](SECURITY.md) before use.
 
-## ??? Interface and workflow
+## 🖥️ Interface and workflow
 
 - English/Polish first-run wizard, with English as the default;
 - Simple mode for guided receiving, watch-only export and transaction signing;
@@ -128,7 +128,7 @@ Secrets must briefly exist in RAM while a key is derived or a transaction is sig
 - PIN-protected factory reset;
 - five lightweight themes: Mono, Phosphor, Amber, Cobalt and Crimson.
 
-## ?? USB structure
+## 📁 USB structure
 
 The USB interoperability directory is `/EntropySilo` on both the Raspberry Pi 2 and Live USB editions.
 
@@ -144,7 +144,7 @@ L¦¦ backup2.eswb
 
 The application never executes scripts from removable media. It operates only on explicitly supported files in this directory and does not delete or overwrite unrelated files.
 
-## ?? Official downloads
+## ⬇️ Official downloads
 
 The **only official distribution channel** is [GitHub Releases](https://github.com/hattimon/EntropySilo/releases). System images are release assets and are never committed to the Git repository.
 
@@ -157,7 +157,7 @@ Every downloadable image must be accompanied by:
 
 Always verify SHA-256 before writing an image to an SD card or USB drive. A backup mirror may be announced later by hattimon, but it will not replace GitHub Releases as the official source.
 
-## ?? Supported hardware and images
+## 🤖 Supported hardware and images
 
 | Target | Architecture | Display | Status |
 |---|---:|---|---|
@@ -173,18 +173,18 @@ EntropySilo-Pi2-Bookworm-0.3.0.img.xz
 EntropySilo-Live-x86_64-0.3.0.iso
 ```
 
-#### ? Direct download links
+#### ⬇️ Direct download links
 
 | Platform | Image | Download |
 |---|---|---|
-| ?? Raspberry Pi 2 | EntropySilo-Pi2-Bookworm-0.3.0.img.xz | [?? Download](https://github.com/hattimon/EntropySilo/releases/download/v0.3.0/EntropySilo-Pi2-Bookworm-0.3.0.img.xz) |
-| ?? PC Live USB (x86-64) | EntropySilo-Live-x86_64-0.3.0.iso | [?? Download](https://github.com/hattimon/EntropySilo/releases/download/v0.3.0/EntropySilo-Live-x86_64-0.3.0.iso) |
+| 🎓 Raspberry Pi 2 | EntropySilo-Pi2-Bookworm-0.3.0.img.xz | [⬇️ Download](https://github.com/hattimon/EntropySilo/releases/download/v0.3.0/EntropySilo-Pi2-Bookworm-0.3.0.img.xz) |
+| 💻 PC Live USB (x86-64) | EntropySilo-Live-x86_64-0.3.0.iso | [⬇️ Download](https://github.com/hattimon/EntropySilo/releases/download/v0.3.0/EntropySilo-Live-x86_64-0.3.0.iso) |
 
 Both platforms are validated for the complete boot, display, input, backup, recovery and PSBT-signing workflow. See the [v0.3.0 release page](https://github.com/hattimon/EntropySilo/releases/tag/v0.3.0) for `.sha256` checksums and `.txt` compatibility reports.
 
 Each future image will have a matching `.txt` compatibility report. A platform will not be described as validated until its complete boot, display, input, backup, recovery and PSBT-signing workflow has been tested on physical hardware.
 
-## ??? Building the Pi 2 image
+## 🛠️ Building the Pi 2 image
 
 Requirements: Windows with WSL2/Ubuntu or Linux x86-64, approximately 15 GB of free storage, and network access on the build workstation only.
 
@@ -204,7 +204,7 @@ sudo bash image-builder/build_image.sh
 
 The builder downloads the official Raspberry Pi OS Lite base, verifies pinned assets, provisions the image under QEMU, executes cryptographic regression tests and produces the compressed image plus its SHA-256 checksum.
 
-## ?? Building the x86-64 Live USB image
+## 🛠️ Building the x86-64 Live USB image
 
 The Live edition is a separate Debian Bookworm hybrid ISO for 64-bit laptops and PCs. It supports BIOS and UEFI boot, runs the interface fullscreen, disables networking, and keeps the vault in the non-persistent Live overlay. Vault changes disappear at shutdown. Use a **second** FAT32/exFAT USB drive with `/EntropySilo` for imports, PSBT files and encrypted backups; the boot medium is explicitly excluded from data-drive selection.
 
@@ -224,7 +224,7 @@ sudo ./live-builder/build_live.sh
 
 Write the resulting `.iso` in raw/DD mode with Raspberry Pi Imager, balenaEtcher, Rufus in DD mode, or `dd`. Secure Boot compatibility depends on the target firmware and must be confirmed on the actual laptop. The generated `.txt` report deliberately distinguishes structural build validation from physical hardware validation.
 
-## ? Development tests
+## ✅ Development tests
 
 ```bash
 npm ci
@@ -235,7 +235,7 @@ npm audit --omit=dev
 
 The test suite covers BIP39, card-entropy combination, encrypted vaults, the official BIP85 vector, a real BIP84 PSBT signing flow, vault overwrite protection, broker socket permissions and GUI keyboard navigation.
 
-## ?? Project ownership and attribution
+## 👥 Project ownership and attribution
 
 EntropySilo, [hattimon/Seed-Generator-Wallet-Decoder](https://github.com/hattimon/Seed-Generator-Wallet-Decoder) and [hattimon/wallet-decoder](https://github.com/hattimon/wallet-decoder) are projects by **hattimon**.
 
@@ -243,11 +243,11 @@ EntropySilo, [hattimon/Seed-Generator-Wallet-Decoder](https://github.com/hattimo
 
 Third-party cryptographic libraries retain their respective licences and notices.
 
-## ?? Open-source licence
+## 📜 Open-source licence
 
 EntropySilo is released under the [MIT License](LICENSE). You may use, inspect, modify and redistribute the project while retaining the copyright and licence notice. Bundled dependencies and third-party components retain their own licences and notices.
 
-## ?? Support the project
+## 💝 Support the project
 
 If EntropySilo is useful to you, you can leave hattimon a voluntary tip and help fund hardware testing, security reviews and continued open-source development.
 
@@ -255,7 +255,7 @@ The intended support channels are designed to remain inexpensive both in Poland 
 
 | Method | Best for | Cost model |
 |---|---|---|
-| **? Bitcoin on-chain** | Larger international tips | Direct payment without a payment processor; the sender pays the Bitcoin network fee. Donation address (SegWit, separate from EntropySilo wallets): `bc1q73wncmalnn4pa8fh742yfzwgmlscfc5lk240aw`. Always verify the address against this repository before sending. |
+| **₿ Bitcoin on-chain** | Larger international tips | Direct payment without a payment processor; the sender pays the Bitcoin network fee. Donation address (SegWit, separate from EntropySilo wallets): `bc1q73wncmalnn4pa8fh742yfzwgmlscfc5lk240aw`. Always verify the address against this repository before sending. |
 | **⚡Bitcoin Lightning** | Small international tips | Instant, low-fee tips via Lightning Address. You can send any amount from any Lightning wallet (e.g. Phoenix, Muun, Zeus, Breez). Send to: [verdantdawn594@walletofsatoshi.com](mailto:verdantdawn594@walletofsatoshi.com) (self-custody wallet with seed backup; used only for small tips, not for long-term storage). |
 Official payment details will be added here only after the receiving addresses and profiles have been verified by hattimon. Never send funds to an address posted in an issue, pull request, comment or unsolicited private message.
 
