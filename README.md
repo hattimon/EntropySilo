@@ -1,4 +1,4 @@
-**Language:** [🇬🇧 English](README.md) | [🇵🇱 Polski](README.pl.md)
+﻿**Language:** [🇬🇧 English](README.md) | [🇵🇱 Polski](README.pl.md)
 
 <p align="center">
   <img src="docs/assets/entropy-silo-logo.svg" alt="EntropySilo — Offline Bitcoin Seed Workstation" width="820">
@@ -161,12 +161,12 @@ Always verify SHA-256 before writing an image to an SD card or USB drive. A back
 
 | Target | Architecture | Display | Status |
 |---|---:|---|---|
-| Raspberry Pi 2 Model B | ARMv7 / 32-bit | Waveshare 3.5inch RPi LCD (A), 480x320 | 0.3.0 build definition ready; release build and physical recheck pending |
+| Raspberry Pi 2 Model B | ARMv7 / 32-bit | Waveshare 3.5inch RPi LCD (A), 480x320 | 0.3.0 build complete; released in v0.3.0 GitHub release |
 | Raspberry Pi 3 | ARM64 | Waveshare 3.5inch RPi LCD (A) | Planned as a separate image |
 | Raspberry Pi 4/5 | ARM64 | Waveshare 3.5inch RPi LCD (A) | Planned as a separate image |
-| PC Live USB | x86-64 | Generic display, keyboard, mouse/touch and UVC camera | 0.3.0 build definition ready; release build and physical validation pending |
+| PC Live USB | x86-64 | Generic display, keyboard, mouse/touch and UVC camera | 0.3.0 build complete; released in v0.3.0 GitHub release |
 
-Planned EntropySilo 0.3.0 release artifacts:
+EntropySilo 0.3.0 release artifacts (available on the [v0.3.0 GitHub release](https://github.com/hattimon/EntropySilo/releases/tag/v0.3.0)):
 
 ```text
 EntropySilo-Pi2-Bookworm-0.3.0.img.xz

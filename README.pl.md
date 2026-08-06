@@ -1,4 +1,4 @@
-**Język:** [🇬🇧 English](README.md) | [🇵🇱 Polski](README.pl.md)
+﻿**Język:** [🇬🇧 English](README.md) | [🇵🇱 Polski](README.pl.md)
 
 <p align="center">
   <img src="docs/assets/entropy-silo-logo.svg" alt="EntropySilo — środowisko offline do generowania seedów Bitcoin" width="820">
@@ -161,12 +161,12 @@ Przed zapisaniem obrazu na kartę SD albo USB zawsze zweryfikuj SHA-256. Zapasow
 
 | Platforma | Architektura | Ekran | Status |
 |---|---:|---|---|
-| Raspberry Pi 2 Model B | ARMv7 / 32-bit | Waveshare 3.5inch RPi LCD (A), 480x320 | Definicja budowy 0.3.0 gotowa; oczekuje na build wydania i ponowny test sprzętowy |
+| Raspberry Pi 2 Model B | ARMv7 / 32-bit | Waveshare 3.5inch RPi LCD (A), 480x320 | Budowa 0.3.0 ukończona; wydana w release v0.3.0 GitHub |
 | Raspberry Pi 3 | ARM64 | Waveshare 3.5inch RPi LCD (A) | Planowany osobny obraz |
 | Raspberry Pi 4/5 | ARM64 | Waveshare 3.5inch RPi LCD (A) | Planowany osobny obraz |
-| PC Live USB | x86-64 | Standardowy ekran, klawiatura, mysz/dotyk i kamera UVC | Definicja budowy 0.3.0 gotowa; oczekuje na build wydania i walidację sprzętową |
+| PC Live USB | x86-64 | Standardowy ekran, klawiatura, mysz/dotyk i kamera UVC | Budowa 0.3.0 ukończona; wydana w release v0.3.0 GitHub |
 
-Planowane artefakty wydania EntropySilo 0.3.0:
+Artefakty wydania EntropySilo 0.3.0 (dostępne w [wydaniu v0.3.0 na GitHub](https://github.com/hattimon/EntropySilo/releases/tag/v0.3.0)):
 
 ```text
 EntropySilo-Pi2-Bookworm-0.3.0.img.xz
