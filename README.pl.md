@@ -247,5 +247,6 @@ Planowane kanały wsparcia są dobrane tak, aby wpłaty były możliwie tanie za
 | Metoda | Najlepsze zastosowanie | Model kosztów |
 |---|---|---|
 | **₿ Bitcoin on-chain** | Większe napiwki międzynarodowe | Bezpośrednia wpłata bez operatora płatności; nadawca ponosi opłatę sieci Bitcoin. Adres do wpłat (SegWit, oddzielny od portfeli EntropySilo): `bc1q73wncmalnn4pa8fh742yfzwgmlscfc5lk240aw`. Zawsze zweryfikuj adres z tym repozytorium przed wysłaniem środków. |
+| ⚡**Bitcoin Lightning** | Male napiwki miedzynarodowe | Blyskawiczne, tanie napiwki przez Lightning Address. Mozesz wyslac dowolna kwote z dowolnego portfela Lightning (np. Phoenix, Muun, Zeus, Breez). Wyslij na: [verdantdawn594@walletofsatoshi.com](mailto:verdantdawn594@walletofsatoshi.com) (portfel custodial; tylko na male napiwki, nie do dlugoterminowego przechowywania). |
 
 Oficjalne dane do wpłat zostaną dodane wyłącznie po zweryfikowaniu adresów i profili przez hattimon. Nigdy nie wysyłaj środków na adres podany w zgłoszeniu, pull requeście, komentarzu ani niezamówionej wiadomości prywatnej.
