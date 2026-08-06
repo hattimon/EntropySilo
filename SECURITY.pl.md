@@ -51,3 +51,17 @@ Reset wymaga poprawnego PIN-u, usuwa pliki skarbców i ustawienia, a potem uruch
 ## Trezor
 
 Kod open-source Trezora nie zmienia Raspberry Pi w Trezora. Emulator jest przeznaczony do rozwoju i testów, a nie do ochrony rzeczywistych kluczy. Z tego powodu nie jest instalowany ani uruchamiany w obrazie produkcyjnym.
+
+
+## Automatyzacja bezpieczeństwa repozytorium
+
+Repozytorium GitHub (kod źródłowy, dokumentacja i workflowy CI) korzysta z następujących automatycznych mechanizmów skanowania, niezależnych od opisanego wyżej modelu bezpieczeństwa urządzenia:
+
+*   • Włączone jest prywatne zgłaszanie podatności (private vulnerability reporting), umożliwiające badaczom poufne zgłaszanie problemów bezpośrednio opiekunowi projektu.
+*   • Graf zależności oraz alerty Dependabota monitorują zależności npm i GitHub Actions pod kątem znanych podatności.
+*   • Aktualizacje bezpieczeństwa Dependabota oraz zgrupowane aktualizacje automatycznie otwierają pull requesty łatające podatne zależności.
+*   • Aktualizacje wersji Dependabota utrzymują zależności npm i GitHub Actions na bieżąco w cotygodniowym cyklu, skonfigurowanym w pliku `.github/dependabot.yml`.
+*   • Alerty o złośliwym oprogramowaniu Dependabota oznaczają zależności, w których później wykryto złośliwy kod.
+*   • Skanowanie kodu CodeQL (konfiguracja domyślna) analizuje źródła JavaScript/TypeScript i Python pod kątem typowych podatności i błędów programistycznych przy każdym push i pull requeście.
+
+Te zabezpieczenia na poziomie repozytorium zmniejszają ryzyko, że skompromitowana zależność lub wprowadzona podatność w kodzie trafi do obrazu wydania. Nie zastępują one przeglądu źródła, powtarzalnych buildów ani testów na fizycznym sprzęcie przed ochroną rzeczywistych środków.
