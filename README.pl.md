@@ -177,7 +177,7 @@ EntropySilo-Live-x86_64-0.3.0.iso
 
 | Platforma | Obraz | Pobierz |
 |---|---|---|
-| 🎓 Raspberry Pi 2 | EntropySilo-Pi2-Bookworm-0.3.0.img.xz | [⬇️ Pobierz](https://github.com/hattimon/EntropySilo/releases/download/v0.3.0/EntropySilo-Pi2-Bookworm-0.3.0.img.xz) |
+| 🔌 Raspberry Pi 2 | EntropySilo-Pi2-Bookworm-0.3.0.img.xz | [⬇️ Pobierz](https://github.com/hattimon/EntropySilo/releases/download/v0.3.0/EntropySilo-Pi2-Bookworm-0.3.0.img.xz) |
 | 💻 PC Live USB (x86-64) | EntropySilo-Live-x86_64-0.3.0.iso | [⬇️ Pobierz](https://github.com/hattimon/EntropySilo/releases/download/v0.3.0/EntropySilo-Live-x86_64-0.3.0.iso) |
 
 Obie platformy sa zweryfikowane pod katem pelnego procesu rozruchu, wyswietlania, wejscia, kopii zapasowej, odzyskiwania i podpisywania PSBT. Sprawdz [strone wydania v0.3.0](https://github.com/hattimon/EntropySilo/releases/tag/v0.3.0), aby pobrac sumy kontrolne `.sha256` oraz raporty zgodnosci `.txt`.
