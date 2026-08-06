@@ -1,0 +1,53 @@
+[Unit]
+Description=EntropySilo air-gapped Live USB interface
+After=xserver-entropysilo.service entropysilo-privileged.socket
+Requires=xserver-entropysilo.service entropysilo-privileged.socket
+Conflicts=getty@tty1.service
+
+[Service]
+Type=simple
+User=wallet
+Group=wallet
+SupplementaryGroups=video input render
+WorkingDirectory=/opt/entropysilo
+Environment=HOME=/var/lib/entropysilo
+Environment=XDG_RUNTIME_DIR=/run/entropysilo
+Environment=DISPLAY=:0
+Environment=SDL_VIDEODRIVER=x11
+Environment=ENTROPYSILO_DESKTOP=1
+Environment=ENTROPYSILO_VAULT_DIR=/var/lib/entropysilo/vaults
+Environment=ENTROPYSILO_SWD_BIN=/usr/local/bin
+Environment=ENTROPYSILO_PRIVILEGED_SOCKET=/run/entropysilo-privileged/control.sock
+RuntimeDirectory=entropysilo
+RuntimeDirectoryMode=0700
+ExecStartPre=/bin/sh -c 'for i in $(seq 1 100); do test -S /tmp/.X11-unix/X0 && exit 0; sleep .1; done; exit 1'
+ExecStart=/usr/bin/python3 /opt/entropysilo/apps/wallet_gui.py
+Restart=on-failure
+RestartSec=2
+StandardOutput=journal
+StandardError=journal
+UMask=0077
+NoNewPrivileges=yes
+PrivateTmp=no
+PrivateDevices=no
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectKernelLogs=yes
+ProtectControlGroups=yes
+ProtectClock=yes
+ProtectHostname=yes
+ProtectProc=invisible
+RestrictSUIDSGID=yes
+LockPersonality=yes
+RestrictRealtime=yes
+RestrictNamespaces=yes
+RestrictAddressFamilies=AF_UNIX
+IPAddressDeny=any
+ReadWritePaths=/var/lib/entropysilo /run/entropysilo /run/entropysilo-privileged /tmp
+CapabilityBoundingSet=
+SystemCallArchitectures=native
+
+[Install]
+WantedBy=multi-user.target

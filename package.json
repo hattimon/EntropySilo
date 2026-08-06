@@ -1,0 +1,30 @@
+{
+  "name": "entropy-silo-offline-signer",
+  "version": "0.3.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Air-gapped Bitcoin PSBT signer for Raspberry Pi 2 and Waveshare 3.5 LCD",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "check": "node --check apps/bip39.js && node --check apps/bip85.js && node --check apps/wallet-core.js && node --check apps/wallet-cli.js && node --check apps/qr-tx.js && node --check apps/qr-decode.js && python3 -m py_compile apps/wallet_gui.py",
+    "test": "node --test",
+    "vendor:wordlist": "node scripts/vendor_bip39_wordlist.mjs"
+  },
+  "dependencies": {
+    "@scure/bip39": "2.2.0",
+    "bip32": "5.0.0",
+    "bitcoinjs-lib": "7.0.0",
+    "ecpair": "3.0.0",
+    "jpeg-js": "0.4.4",
+    "jsqr": "1.4.0",
+    "pngjs": "7.0.0",
+    "qrcode": "1.5.4",
+    "tiny-secp256k1": "2.2.4"
+  },
+  "overrides": {
+    "valibot": "1.4.2"
+  }
+}

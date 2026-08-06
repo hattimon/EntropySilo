@@ -1,0 +1,4 @@
+#!/bin/sh
+set -eu
+cd /opt/Seed-Generator-Wallet-Decoder
+exec /usr/local/bin/node ./src/cli.js legacy --words 24 --json "$@"

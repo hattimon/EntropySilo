@@ -1,0 +1,1 @@
+ACTION=="add", SUBSYSTEM=="net", KERNEL!="lo", RUN+="/usr/sbin/ip link set dev %k down"

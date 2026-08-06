@@ -1,0 +1,14 @@
+[Unit]
+Description=EntropySilo force every non-loopback network interface down
+DefaultDependencies=no
+After=systemd-udevd.service
+Before=network-pre.target
+Wants=network-pre.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c '/usr/sbin/ip -o link show | /usr/bin/awk -F": " "$2 != \"lo\" {print $2}" | /usr/bin/xargs -r -n1 /usr/sbin/ip link set dev down'
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

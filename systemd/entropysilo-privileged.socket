@@ -1,0 +1,16 @@
+[Unit]
+Description=EntropySilo restricted privileged broker socket
+
+[Socket]
+ListenStream=/run/entropysilo-privileged/control.sock
+SocketUser=root
+SocketGroup=wallet
+SocketMode=0660
+# The directory must be traversable by wallet; the socket itself remains
+# restricted to root:wallet with mode 0660.
+DirectoryMode=0755
+Accept=yes
+RemoveOnStop=yes
+
+[Install]
+WantedBy=sockets.target

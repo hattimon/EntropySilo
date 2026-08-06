@@ -1,0 +1,1 @@
+SUBSYSTEM=="input", KERNEL=="event*", ATTRS{name}=="ADS7846 Touchscreen", ENV{SDL_TOUCH_MOUSE_EVENTS}="1"

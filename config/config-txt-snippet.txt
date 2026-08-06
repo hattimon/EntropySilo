@@ -1,0 +1,12 @@
+# BEGIN ENTROPYSILO LCD35A
+dtparam=spi=on
+dtoverlay=waveshare35a
+hdmi_force_hotplug=1
+hdmi_group=2
+hdmi_mode=87
+hdmi_cvt=480 320 60 6 0 0 0
+hdmi_drive=2
+dtoverlay=disable-wifi
+dtoverlay=disable-bt
+enable_uart=0
+# END ENTROPYSILO LCD35A

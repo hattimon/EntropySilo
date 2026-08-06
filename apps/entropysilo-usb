@@ -1,0 +1,244 @@
+#!/bin/bash
+set -Eeuo pipefail
+umask 077
+
+MOUNT_DIR=/run/entropysilo-usb-mount
+ACTION=${1:-}
+WALLET_UID=${ENTROPYSILO_USB_WALLET_UID:-$(id -u wallet)}
+WALLET_GID=${ENTROPYSILO_USB_WALLET_GID:-$(id -g wallet)}
+mounted=0
+active_temp=
+
+cleanup() {
+  set +e
+  if [[ -n $active_temp && -f $active_temp && ! -L $active_temp ]]; then rm -f -- "$active_temp"; fi
+  if [[ $mounted == 1 ]] && mountpoint -q "$MOUNT_DIR"; then umount "$MOUNT_DIR"; fi
+  rmdir "$MOUNT_DIR" 2>/dev/null || true
+}
+trap cleanup EXIT
+
+find_usb_partition() {
+  local -a matches=() blocked=()
+  local source parent
+  for source in "$(findmnt -nro SOURCE / 2>/dev/null || true)" "$(findmnt -nro SOURCE /run/live/medium 2>/dev/null || true)"; do
+    [[ $source == /dev/* ]] || continue
+    parent=$(lsblk -nro PKNAME "$source" 2>/dev/null | head -n1 || true)
+    [[ -n $parent ]] && blocked+=("$parent")
+    blocked+=("${source#/dev/}")
+  done
+  while read -r name type fstype removable; do
+    [[ $name =~ ^sd[a-z]([0-9]+)?$ ]] || continue
+    [[ $type == part || $type == disk ]] || continue
+    [[ $removable == 1 ]] || continue
+    parent=$(lsblk -nro PKNAME "/dev/$name" 2>/dev/null | head -n1 || true)
+    if printf '%s\n' "${blocked[@]}" | grep -Fqx -- "$name" || { [[ -n $parent ]] && printf '%s\n' "${blocked[@]}" | grep -Fqx -- "$parent"; }; then
+      continue
+    fi
+    case ${fstype,,} in vfat|exfat) matches+=("/dev/$name:${fstype,,}");; esac
+  done < <(lsblk -rno NAME,TYPE,FSTYPE,RM)
+  [[ ${#matches[@]} -eq 1 ]] || {
+    echo "Wymagany jest dokładnie jeden pendrive USB z pojedynczym systemem plików FAT32/exFAT; wykryto ${#matches[@]}." >&2
+    exit 2
+  }
+  printf '%s\n' "${matches[0]}"
+}
+
+mount_usb() {
+  local mode=$1 found device fstype options
+  found=$(find_usb_partition); device=${found%%:*}; fstype=${found#*:}
+  install -d -m 0700 -o root -g root "$MOUNT_DIR"
+  options="$mode,nosuid,nodev,noexec,noatime,uid=$WALLET_UID,gid=$WALLET_GID,umask=077"
+  mount -t "$fstype" -o "$options" "$device" "$MOUNT_DIR"
+  mounted=1
+  printf '%s\n' "$device"
+}
+
+read_exact() {
+  local relative=$1 limit=$2 path size
+  mount_usb ro >/dev/null
+  path="$MOUNT_DIR/$relative"
+  [[ -f $path && ! -L $path ]] || { echo "Brak wymaganego pliku /$relative." >&2; exit 3; }
+  size=$(stat -c '%s' -- "$path")
+  [[ $size -gt 0 && $size -le $limit ]] || { echo "Nieprawidłowy rozmiar pliku /$relative ($size B)." >&2; exit 4; }
+  cat -- "$path"
+}
+
+write_exact() {
+  local relative=$1 limit=$2 path size stem extension number=1
+  mount_usb rw >/dev/null
+  install -d -m 0700 -o "$WALLET_UID" -g "$WALLET_GID" "$MOUNT_DIR/EntropySilo"
+  path="$MOUNT_DIR/$relative"
+  if [[ -e $path ]]; then
+    stem=${relative%.*}; extension=${relative##*.}
+    while [[ -e "$MOUNT_DIR/${stem}${number}.${extension}" ]]; do
+      ((number += 1)); (( number <= 999999 )) || { echo "Osiągnięto limit numeracji plików." >&2; exit 8; }
+    done
+    relative="${stem}${number}.${extension}"; path="$MOUNT_DIR/$relative"
+  fi
+  active_temp="$MOUNT_DIR/EntropySilo/.entropysilo-write-$$.tmp"
+  ( umask 077; set -o noclobber; cat >"$active_temp" )
+  size=$(stat -c '%s' -- "$active_temp")
+  if [[ $size -le 0 || $size -gt $limit ]]; then rm -f -- "$active_temp"; active_temp=; echo "Dane wyjściowe mają nieprawidłowy rozmiar." >&2; exit 7; fi
+  chmod 0600 "$active_temp"
+  mv -n -- "$active_temp" "$path"
+  active_temp=
+  sync -f "$MOUNT_DIR/EntropySilo"
+  printf '/%s\n' "$relative"
+}
+
+valid_psbt_name() {
+  [[ $1 =~ ^[A-Za-z0-9][A-Za-z0-9_-]{0,63}\.psbt$ ]]
+}
+
+list_psbts() {
+  local path base size modified
+  mount_usb ro >/dev/null
+  shopt -s nullglob
+  for path in "$MOUNT_DIR"/EntropySilo/*.psbt; do
+    [[ -f $path && ! -L $path ]] || continue
+    base=${path##*/}; valid_psbt_name "$base" || continue
+    size=$(stat -c '%s' -- "$path")
+    (( size > 0 && size <= 2 * 1024 * 1024 )) || continue
+    modified=$(stat -c '%Y' -- "$path")
+    printf '%s\t%s\t%s\n' "$base" "$size" "$modified"
+  done | sort
+}
+
+read_selected_psbt() {
+  local requested path size
+  IFS= read -r requested || true
+  valid_psbt_name "$requested" || { echo "Niedozwolona nazwa pliku PSBT." >&2; exit 3; }
+  mount_usb ro >/dev/null
+  path="$MOUNT_DIR/EntropySilo/$requested"
+  [[ -f $path && ! -L $path ]] || { echo "Brak wybranego pliku /EntropySilo/$requested." >&2; exit 3; }
+  size=$(stat -c '%s' -- "$path")
+  [[ $size -gt 0 && $size -le $((2 * 1024 * 1024)) ]] || { echo "Nieprawidłowy rozmiar pliku PSBT ($size B)." >&2; exit 4; }
+  cat -- "$path"
+}
+
+write_selected_result() {
+  local kind=$1 source stem relative path size number=1 suffix extension
+  IFS= read -r source || true
+  valid_psbt_name "$source" || { echo "Niedozwolona nazwa źródłowego pliku PSBT." >&2; exit 3; }
+  stem=${source%.psbt}
+  if [[ $kind == psbt ]]; then suffix=-signed; extension=psbt; else suffix=-final; extension=txn; fi
+  relative="EntropySilo/${stem}${suffix}.${extension}"
+  mount_usb rw >/dev/null
+  install -d -m 0700 -o "$WALLET_UID" -g "$WALLET_GID" "$MOUNT_DIR/EntropySilo"
+  while [[ -e "$MOUNT_DIR/$relative" ]]; do
+    relative="EntropySilo/${stem}${suffix}${number}.${extension}"
+    ((number += 1)); (( number <= 999999 )) || { echo "Osiągnięto limit numeracji plików." >&2; exit 8; }
+  done
+  path="$MOUNT_DIR/$relative"; active_temp="$MOUNT_DIR/EntropySilo/.entropysilo-write-$$.tmp"
+  ( umask 077; set -o noclobber; cat >"$active_temp" )
+  size=$(stat -c '%s' -- "$active_temp")
+  if [[ $size -le 0 || $size -gt $((2 * 1024 * 1024)) ]]; then rm -f -- "$active_temp"; active_temp=; echo "Dane podpisu mają nieprawidłowy rozmiar." >&2; exit 7; fi
+  chmod 0600 "$active_temp"; mv -n -- "$active_temp" "$path"; active_temp=
+  sync -f "$MOUNT_DIR/EntropySilo"
+  printf '/%s\n' "$relative"
+}
+
+backup_number() {
+  local base=${1##*/}
+  if [[ $base =~ ^backup([0-9]*)\.(eswb|rpwb)$ ]]; then
+    [[ -z ${BASH_REMATCH[1]} ]] && printf '0\n' || printf '%d\n' "$((10#${BASH_REMATCH[1]}))"
+    return 0
+  fi
+  return 1
+}
+
+latest_backup_relative() {
+  local path base number best_number=-1 best=
+  shopt -s nullglob
+  for path in "$MOUNT_DIR"/EntropySilo/backup.eswb "$MOUNT_DIR"/EntropySilo/backup[0-9]*.eswb \
+      "$MOUNT_DIR"/EntropySilo/backup.rpwb "$MOUNT_DIR"/EntropySilo/backup[0-9]*.rpwb; do
+    [[ -f $path && ! -L $path ]] || continue
+    base=${path##*/}
+    number=$(backup_number "$base") || continue
+    if (( number > best_number )); then best_number=$number; best="EntropySilo/$base"; fi
+  done
+  [[ -n $best ]] || { echo "Brak backupu /EntropySilo/backup[liczba].eswb." >&2; exit 3; }
+  printf '%s\n' "$best"
+}
+
+list_backups() {
+  local relative path size modified number
+  mount_usb ro >/dev/null
+  while IFS= read -r relative; do
+    path="$MOUNT_DIR/$relative"
+    size=$(stat -c '%s' -- "$path"); modified=$(stat -c '%Y' -- "$path")
+    number=$(backup_number "${relative##*/}") || continue
+    printf '%s\t%s\t%s\t%s\n' "${relative##*/}" "$number" "$size" "$modified"
+  done < <(
+    local candidate base
+    shopt -s nullglob
+    for candidate in "$MOUNT_DIR"/EntropySilo/backup.eswb "$MOUNT_DIR"/EntropySilo/backup[0-9]*.eswb \
+        "$MOUNT_DIR"/EntropySilo/backup.rpwb "$MOUNT_DIR"/EntropySilo/backup[0-9]*.rpwb; do
+      [[ -f $candidate && ! -L $candidate ]] || continue
+      base=${candidate##*/}
+      backup_number "$base" >/dev/null || continue
+      printf 'EntropySilo/%s\n' "$base"
+    done
+  ) | sort -t $'\t' -k2,2n
+}
+
+read_selected_backup() {
+  local requested relative path size
+  IFS= read -r requested || true
+  mount_usb ro >/dev/null
+  if [[ -z $requested ]]; then
+    relative=$(latest_backup_relative)
+  else
+    backup_number "$requested" >/dev/null || { echo "Niedozwolona nazwa backupu." >&2; exit 3; }
+    relative="EntropySilo/$requested"
+  fi
+  path="$MOUNT_DIR/$relative"
+  [[ -f $path && ! -L $path ]] || { echo "Brak wybranego backupu /$relative." >&2; exit 3; }
+  size=$(stat -c '%s' -- "$path")
+  [[ $size -gt 0 && $size -le $((16 * 1024 * 1024)) ]] || { echo "Nieprawidłowy rozmiar pliku /$relative ($size B)." >&2; exit 4; }
+  cat -- "$path"
+}
+
+write_numbered_backup() {
+  local number=0 relative legacy_relative path size
+  mount_usb rw >/dev/null
+  install -d -m 0700 -o "$WALLET_UID" -g "$WALLET_GID" "$MOUNT_DIR/EntropySilo"
+  while :; do
+    if (( number == 0 )); then relative=EntropySilo/backup.eswb; else relative="EntropySilo/backup${number}.eswb"; fi
+    legacy_relative=${relative%.eswb}.rpwb
+    [[ -e "$MOUNT_DIR/$relative" || -e "$MOUNT_DIR/$legacy_relative" ]] || break
+    ((number += 1))
+    (( number <= 999999 )) || { echo "Osiągnięto limit numeracji backupów." >&2; exit 8; }
+  done
+  path="$MOUNT_DIR/$relative"; active_temp="$MOUNT_DIR/EntropySilo/.entropysilo-backup-$$.tmp"
+  ( umask 077; set -o noclobber; cat >"$active_temp" )
+  size=$(stat -c '%s' -- "$active_temp")
+  if [[ $size -le 0 || $size -gt $((16 * 1024 * 1024)) ]]; then rm -f -- "$active_temp"; active_temp=; echo "Backup ma nieprawidłowy rozmiar." >&2; exit 7; fi
+  chmod 0600 "$active_temp"
+  mv -n -- "$active_temp" "$path"
+  active_temp=
+  sync -f "$MOUNT_DIR/EntropySilo"
+  printf '/%s\n' "$relative"
+}
+
+if [[ ${ENTROPYSILO_USB_LIBRARY_ONLY:-0} == 1 ]]; then
+  return 0 2>/dev/null || exit 0
+fi
+
+case "$ACTION" in
+  read-psbt) read_exact EntropySilo/unsigned.psbt $((2 * 1024 * 1024));;
+  list-psbts) list_psbts;;
+  read-selected-psbt) read_selected_psbt;;
+  read-secret) read_exact EntropySilo/import.txt $((64 * 1024));;
+  list-backups) list_backups;;
+  read-backup) read_selected_backup;;
+  read-qr-png) read_exact EntropySilo/unsigned-qr.png $((16 * 1024 * 1024));;
+  read-qr-jpg) read_exact EntropySilo/unsigned-qr.jpg $((16 * 1024 * 1024));;
+  write-signed-psbt) write_exact EntropySilo/signed.psbt $((2 * 1024 * 1024));;
+  write-signed-txn) write_exact EntropySilo/signed.txn $((2 * 1024 * 1024));;
+  write-selected-signed-psbt) write_selected_result psbt;;
+  write-selected-signed-txn) write_selected_result txn;;
+  write-backup) write_numbered_backup;;
+  probe) mount_usb ro;;
+  *) echo "Niedozwolona akcja helpera USB." >&2; exit 64;;
+esac

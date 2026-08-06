@@ -1,0 +1,17 @@
+# Dependencies and local caches
+node_modules/
+.npm-cache/
+.preview-deps/
+.test-deps/
+__pycache__/
+*.py[cod]
+
+# Generated image-builder inputs, previews and outputs
+build/
+output/
+
+# Local editor and OS files
+.DS_Store
+Thumbs.db
+*.swp
+%ln *grep -Ei first

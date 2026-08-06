@@ -1,0 +1,43 @@
+[Unit]
+Description=EntropySilo local X server
+After=systemd-udevd.service local-fs.target
+Conflicts=getty@tty1.service
+
+[Service]
+Type=simple
+User=root
+Group=root
+RuntimeDirectory=entropysilo-x
+RuntimeDirectoryMode=0700
+ExecStart=/usr/lib/xorg/Xorg :0 -ac -nolisten tcp -noreset vt1 -keeptty -logfile /run/entropysilo-x/Xorg.0.log
+Restart=on-failure
+RestartSec=2
+TTYPath=/dev/tty1
+TTYReset=yes
+TTYVHangup=yes
+TTYVTDisallocate=yes
+StandardInput=tty
+StandardOutput=journal
+StandardError=journal
+UMask=0077
+NoNewPrivileges=yes
+PrivateTmp=no
+PrivateDevices=no
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectKernelLogs=yes
+ProtectControlGroups=yes
+ProtectClock=yes
+ProtectHostname=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+RestrictRealtime=yes
+RestrictNamespaces=yes
+RestrictAddressFamilies=AF_UNIX
+IPAddressDeny=any
+ReadWritePaths=/run/entropysilo-x /tmp
+
+[Install]
+WantedBy=multi-user.target
