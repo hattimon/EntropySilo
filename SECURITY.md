@@ -55,3 +55,17 @@ Factory reset requires the correct PIN, removes vault files and settings, and re
 ## Trezor
 
 Open-source Trezor code does not turn a Raspberry Pi into a Trezor. Emulators are intended for development and testing, not protection of production keys. EntropySilo therefore does not install or run a Trezor emulator in the production image.
+
+
+## Repository security automation
+
+The GitHub repository (source code, documentation and CI workflows) uses the following automated scanning features, independent of the on-device security model described above:
+
+*   • Private vulnerability reporting is enabled, allowing researchers to privately disclose issues to the maintainer.
+*   • The dependency graph and Dependabot alerts monitor npm and GitHub Actions dependencies for known vulnerabilities.
+*   • Dependabot security updates and grouped updates automatically open pull requests to patch vulnerable dependencies.
+*   • Dependabot version updates keep npm and GitHub Actions dependencies current on a weekly schedule, configured in `.github/dependabot.yml`.
+*   • Dependabot malware alerts flag dependencies later found to contain malicious code.
+*   • CodeQL code scanning (default setup) analyses the JavaScript/TypeScript and Python source for common vulnerability and coding-error patterns on every push and pull request.
+
+These repository-level protections reduce the risk of a compromised dependency or an introduced code vulnerability reaching a release image. They do not replace source review, reproducible builds or physical-hardware testing before protecting real funds.
