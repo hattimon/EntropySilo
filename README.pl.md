@@ -1,4 +1,4 @@
-﻿**Język:** [🇬🇧 English](README.md) | [🇵🇱 Polski](README.pl.md)
+﻿**Język:** [English](README.md) | [Polski](README.pl.md)
 
 <p align="center">
   <img src="docs/assets/entropy-silo-logo.svg" alt="EntropySilo — środowisko offline do generowania seedów Bitcoin" width="820">
