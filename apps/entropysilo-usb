@@ -2,7 +2,7 @@
 set -Eeuo pipefail
 umask 077
 
-MOUNT_DIR=/run/entropysilo-usb-mount
+MOUNT_DIR=${ENTROPYSILO_USB_MOUNT_DIR:-/run/entropysilo-usb-mount}
 ACTION=${1:-}
 WALLET_UID=${ENTROPYSILO_USB_WALLET_UID:-$(id -u wallet)}
 WALLET_GID=${ENTROPYSILO_USB_WALLET_GID:-$(id -g wallet)}
@@ -19,19 +19,27 @@ trap cleanup EXIT
 
 find_usb_partition() {
   local -a matches=() blocked=()
-  local source parent
+  local source parent disk removable_disk transport
   for source in "$(findmnt -nro SOURCE / 2>/dev/null || true)" "$(findmnt -nro SOURCE /run/live/medium 2>/dev/null || true)"; do
     [[ $source == /dev/* ]] || continue
+    source=${source%%\[*}
+    source=$(readlink -f -- "$source" 2>/dev/null || printf '%s' "$source")
+    blocked+=("${source#/dev/}")
+    while read -r disk; do
+      [[ -n $disk ]] && blocked+=("${disk#/dev/}")
+    done < <(lsblk -s -nro NAME "$source" 2>/dev/null || true)
     parent=$(lsblk -nro PKNAME "$source" 2>/dev/null | head -n1 || true)
     [[ -n $parent ]] && blocked+=("$parent")
-    blocked+=("${source#/dev/}")
   done
   while read -r name type fstype removable; do
     [[ $name =~ ^sd[a-z]([0-9]+)?$ ]] || continue
     [[ $type == part || $type == disk ]] || continue
-    [[ $removable == 1 ]] || continue
     parent=$(lsblk -nro PKNAME "/dev/$name" 2>/dev/null | head -n1 || true)
-    if printf '%s\n' "${blocked[@]}" | grep -Fqx -- "$name" || { [[ -n $parent ]] && printf '%s\n' "${blocked[@]}" | grep -Fqx -- "$parent"; }; then
+    disk=${parent:-$name}
+    removable_disk=$(lsblk -dnro RM "/dev/$disk" 2>/dev/null | head -n1 || true)
+    transport=$(lsblk -dnro TRAN "/dev/$disk" 2>/dev/null | head -n1 || true)
+    [[ $removable == 1 || $removable_disk == 1 || ${transport,,} == usb ]] || continue
+    if printf '%s\n' "${blocked[@]}" | grep -Fqx -- "$name" || printf '%s\n' "${blocked[@]}" | grep -Fqx -- "$disk"; then
       continue
     fi
     case ${fstype,,} in vfat|exfat) matches+=("/dev/$name:${fstype,,}");; esac
@@ -41,6 +49,21 @@ find_usb_partition() {
     exit 2
   }
   printf '%s\n' "${matches[0]}"
+}
+
+backup_directory() {
+  local directory candidate
+  for directory in EntropySilo RPiWallet; do
+    shopt -s nullglob
+    for candidate in "$MOUNT_DIR/$directory"/backup.eswb "$MOUNT_DIR/$directory"/backup[0-9]*.eswb \
+        "$MOUNT_DIR/$directory"/backup.rpwb "$MOUNT_DIR/$directory"/backup[0-9]*.rpwb; do
+      [[ -f $candidate && ! -L $candidate ]] || continue
+      backup_number "${candidate##*/}" >/dev/null || continue
+      printf '%s\n' "$directory"
+      return 0
+    done
+  done
+  printf 'EntropySilo\n'
 }
 
 mount_usb() {
@@ -148,22 +171,24 @@ backup_number() {
 }
 
 latest_backup_relative() {
-  local path base number best_number=-1 best=
+  local directory path base number best_number=-1 best=
+  directory=$(backup_directory)
   shopt -s nullglob
-  for path in "$MOUNT_DIR"/EntropySilo/backup.eswb "$MOUNT_DIR"/EntropySilo/backup[0-9]*.eswb \
-      "$MOUNT_DIR"/EntropySilo/backup.rpwb "$MOUNT_DIR"/EntropySilo/backup[0-9]*.rpwb; do
+  for path in "$MOUNT_DIR/$directory"/backup.eswb "$MOUNT_DIR/$directory"/backup[0-9]*.eswb \
+      "$MOUNT_DIR/$directory"/backup.rpwb "$MOUNT_DIR/$directory"/backup[0-9]*.rpwb; do
     [[ -f $path && ! -L $path ]] || continue
     base=${path##*/}
     number=$(backup_number "$base") || continue
-    if (( number > best_number )); then best_number=$number; best="EntropySilo/$base"; fi
+    if (( number > best_number )); then best_number=$number; best="$directory/$base"; fi
   done
   [[ -n $best ]] || { echo "Brak backupu /EntropySilo/backup[liczba].eswb." >&2; exit 3; }
   printf '%s\n' "$best"
 }
 
 list_backups() {
-  local relative path size modified number
+  local directory relative path size modified number
   mount_usb ro >/dev/null
+  directory=$(backup_directory)
   while IFS= read -r relative; do
     path="$MOUNT_DIR/$relative"
     size=$(stat -c '%s' -- "$path"); modified=$(stat -c '%Y' -- "$path")
@@ -172,25 +197,26 @@ list_backups() {
   done < <(
     local candidate base
     shopt -s nullglob
-    for candidate in "$MOUNT_DIR"/EntropySilo/backup.eswb "$MOUNT_DIR"/EntropySilo/backup[0-9]*.eswb \
-        "$MOUNT_DIR"/EntropySilo/backup.rpwb "$MOUNT_DIR"/EntropySilo/backup[0-9]*.rpwb; do
+    for candidate in "$MOUNT_DIR/$directory"/backup.eswb "$MOUNT_DIR/$directory"/backup[0-9]*.eswb \
+        "$MOUNT_DIR/$directory"/backup.rpwb "$MOUNT_DIR/$directory"/backup[0-9]*.rpwb; do
       [[ -f $candidate && ! -L $candidate ]] || continue
       base=${candidate##*/}
       backup_number "$base" >/dev/null || continue
-      printf 'EntropySilo/%s\n' "$base"
+      printf '%s/%s\n' "$directory" "$base"
     done
   ) | sort -t $'\t' -k2,2n
 }
 
 read_selected_backup() {
-  local requested relative path size
+  local directory requested relative path size
   IFS= read -r requested || true
   mount_usb ro >/dev/null
   if [[ -z $requested ]]; then
     relative=$(latest_backup_relative)
   else
     backup_number "$requested" >/dev/null || { echo "Niedozwolona nazwa backupu." >&2; exit 3; }
-    relative="EntropySilo/$requested"
+    directory=$(backup_directory)
+    relative="$directory/$requested"
   fi
   path="$MOUNT_DIR/$relative"
   [[ -f $path && ! -L $path ]] || { echo "Brak wybranego backupu /$relative." >&2; exit 3; }

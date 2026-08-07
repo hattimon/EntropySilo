@@ -164,13 +164,13 @@ Always verify SHA-256 before writing an image to an SD card or USB drive. A back
 | Raspberry Pi 2 Model B | ARMv7 / 32-bit | Waveshare 3.5inch RPi LCD (A), 480x320 | 0.3.0 build complete; released in v0.3.0 GitHub release |
 | Raspberry Pi 3 | ARM64 | Waveshare 3.5inch RPi LCD (A) | Planned as a separate image |
 | Raspberry Pi 4/5 | ARM64 | Waveshare 3.5inch RPi LCD (A) | Planned as a separate image |
-| PC Live USB | x86-64 | Generic display, keyboard, mouse/touch and UVC camera | 0.3.0 build complete; released in v0.3.0 GitHub release |
+| PC Live USB | x86-64 | Generic display, keyboard, mouse/touch and UVC camera | 0.3.2 display/USB hotfix; automated ISO validation complete, physical retest required |
 
-EntropySilo 0.3.0 release artifacts (available on the [v0.3.0 GitHub release](https://github.com/hattimon/EntropySilo/releases/tag/v0.3.0)):
+Current platform-specific release artifacts:
 
 ```text
 EntropySilo-Pi2-Bookworm-0.3.0.img.xz
-EntropySilo-Live-x86_64-0.3.0.iso
+EntropySilo-Live-x86_64-0.3.2.iso
 ```
 
 #### ⬇️ Direct download links
@@ -178,9 +178,9 @@ EntropySilo-Live-x86_64-0.3.0.iso
 | Platform | Image | Download |
 |---|---|---|
 | 🔌 Raspberry Pi 2 | EntropySilo-Pi2-Bookworm-0.3.0.img.xz | [⬇️ Download](https://github.com/hattimon/EntropySilo/releases/download/v0.3.0/EntropySilo-Pi2-Bookworm-0.3.0.img.xz) |
-| 💻 PC Live USB (x86-64) | EntropySilo-Live-x86_64-0.3.0.iso | [⬇️ Download](https://github.com/hattimon/EntropySilo/releases/download/v0.3.0/EntropySilo-Live-x86_64-0.3.0.iso) |
+| 💻 PC Live USB (x86-64) | EntropySilo-Live-x86_64-0.3.2.iso | [⬇️ Download](https://github.com/hattimon/EntropySilo/releases/download/v0.3.2/EntropySilo-Live-x86_64-0.3.2.iso) |
 
-Both platforms are validated for the complete boot, display, input, backup, recovery and PSBT-signing workflow. See the [v0.3.0 release page](https://github.com/hattimon/EntropySilo/releases/tag/v0.3.0) for `.sha256` checksums and `.txt` compatibility reports.
+The Raspberry Pi 2 artifact remains unchanged at 0.3.0. Live USB 0.3.2 fixes native-display fullscreen scaling and detection of a separate USB data drive, including devices that report USB transport but not the removable-media bit. Its automated tests and ISO-structure validation pass; the corrected display and backup workflow still require confirmation on physical laptop hardware. See the matching release pages for `.sha256` checksums and `.txt` compatibility reports.
 
 Each future image will have a matching `.txt` compatibility report. A platform will not be described as validated until its complete boot, display, input, backup, recovery and PSBT-signing workflow has been tested on physical hardware.
 
@@ -258,6 +258,7 @@ The intended support channels are designed to remain inexpensive both in Poland 
 | **₿ Bitcoin on-chain** | Larger international tips | Direct payment without a payment processor; the sender pays the Bitcoin network fee. Donation address (SegWit, separate from EntropySilo wallets): `bc1q73wncmalnn4pa8fh742yfzwgmlscfc5lk240aw`. Always verify the address against this repository before sending. |
 | **⚡Bitcoin Lightning** | Small international tips | Instant, low-fee tips via Lightning Address. You can send any amount from any Lightning wallet (e.g. Phoenix, Muun, Zeus, Breez). Send to: [verdantdawn594@walletofsatoshi.com](mailto:verdantdawn594@walletofsatoshi.com) (self-custody wallet with seed backup; used only for small tips, not for long-term storage). |
 
+  
 Official payment details will be added here only after the receiving addresses and profiles have been verified by hattimon. Never send funds to an address posted in an issue, pull request, comment or unsolicited private message.
 
 #### QR codes for easy payment

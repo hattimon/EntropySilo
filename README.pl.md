@@ -164,13 +164,13 @@ Przed zapisaniem obrazu na kartę SD albo USB zawsze zweryfikuj SHA-256. Zapasow
 | Raspberry Pi 2 Model B | ARMv7 / 32-bit | Waveshare 3.5inch RPi LCD (A), 480x320 | Budowa 0.3.0 ukończona; wydana w release v0.3.0 GitHub |
 | Raspberry Pi 3 | ARM64 | Waveshare 3.5inch RPi LCD (A) | Planowany osobny obraz |
 | Raspberry Pi 4/5 | ARM64 | Waveshare 3.5inch RPi LCD (A) | Planowany osobny obraz |
-| PC Live USB | x86-64 | Standardowy ekran, klawiatura, mysz/dotyk i kamera UVC | Budowa 0.3.0 ukończona; wydana w release v0.3.0 GitHub |
+| PC Live USB | x86-64 | Standardowy ekran, klawiatura, mysz/dotyk i kamera UVC | Poprawka obrazu i USB 0.3.2; automatyczna walidacja ISO ukończona, wymagany ponowny test sprzętowy |
 
-Artefakty wydania EntropySilo 0.3.0 (dostępne w [wydaniu v0.3.0 na GitHub](https://github.com/hattimon/EntropySilo/releases/tag/v0.3.0)):
+Aktualne artefakty dla poszczególnych platform:
 
 ```text
 EntropySilo-Pi2-Bookworm-0.3.0.img.xz
-EntropySilo-Live-x86_64-0.3.0.iso
+EntropySilo-Live-x86_64-0.3.2.iso
 ```
 
 #### ⬇️ Bezpośrednie linki do pobrania
@@ -178,9 +178,9 @@ EntropySilo-Live-x86_64-0.3.0.iso
 | Platforma | Obraz | Pobierz |
 |---|---|---|
 | 🔌 Raspberry Pi 2 | EntropySilo-Pi2-Bookworm-0.3.0.img.xz | [⬇️ Pobierz](https://github.com/hattimon/EntropySilo/releases/download/v0.3.0/EntropySilo-Pi2-Bookworm-0.3.0.img.xz) |
-| 💻 PC Live USB (x86-64) | EntropySilo-Live-x86_64-0.3.0.iso | [⬇️ Pobierz](https://github.com/hattimon/EntropySilo/releases/download/v0.3.0/EntropySilo-Live-x86_64-0.3.0.iso) |
+| 💻 PC Live USB (x86-64) | EntropySilo-Live-x86_64-0.3.2.iso | [⬇️ Pobierz](https://github.com/hattimon/EntropySilo/releases/download/v0.3.2/EntropySilo-Live-x86_64-0.3.2.iso) |
 
-Obie platformy sa zweryfikowane pod katem pelnego procesu rozruchu, wyswietlania, wejscia, kopii zapasowej, odzyskiwania i podpisywania PSBT. Sprawdz [strone wydania v0.3.0](https://github.com/hattimon/EntropySilo/releases/tag/v0.3.0), aby pobrac sumy kontrolne `.sha256` oraz raporty zgodnosci `.txt`.
+Obraz Raspberry Pi 2 pozostaje bez zmian w wersji 0.3.0. Live USB 0.3.2 naprawia skalowanie GUI do natywnej rozdzielczości całego ekranu oraz wykrywanie osobnego pendrive'a danych, również gdy urządzenie zgłasza transport USB, lecz nie ustawia flagi nośnika wymiennego. Testy automatyczne i walidacja struktury ISO przechodzą poprawnie; naprawiony obraz i operacje backupu nadal wymagają potwierdzenia na fizycznym laptopie. Sumy `.sha256` i raporty zgodności `.txt` znajdują się przy odpowiednich wydaniach.
 
 Każdy przyszły obraz otrzyma odpowiadający mu raport zgodności `.txt`. Platforma nie zostanie opisana jako zweryfikowana, dopóki cały proces rozruchu, obrazu, sterowania, backupu, odzyskiwania i podpisywania PSBT nie zostanie sprawdzony na fizycznym sprzęcie.
 

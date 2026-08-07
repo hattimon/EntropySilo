@@ -15,7 +15,7 @@ for index, name in enumerate(
 pygame_stub.USEREVENT = 1000
 sys.modules.setdefault("pygame", pygame_stub)
 
-from apps.wallet_gui import FONT_SIZE, LARGE_FONT_SIZE, SMALL_FONT_SIZE, solve_touch_calibration
+from apps.wallet_gui import FONT_SIZE, LARGE_FONT_SIZE, SMALL_FONT_SIZE, map_display_position, solve_touch_calibration
 
 
 def test_affine_touch_calibration():
@@ -33,6 +33,14 @@ def test_affine_touch_calibration():
     assert result["rmsPixels"] < 0.01
 
 
+def test_live_display_pointer_mapping():
+    assert map_display_position((0, 0), (1920, 1080)) == (0, 0)
+    assert map_display_position((960, 540), (1920, 1080)) == (240, 160)
+    assert map_display_position((1919, 1079), (1920, 1080)) == (479, 319)
+    assert map_display_position((683, 384), (1366, 768)) == (240, 160)
+
+
 if __name__ == "__main__":
     test_affine_touch_calibration()
+    test_live_display_pointer_mapping()
     print("TOUCH_AFFINE_OK")
