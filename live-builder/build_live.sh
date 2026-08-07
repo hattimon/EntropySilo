@@ -4,7 +4,7 @@ umask 022
 
 [[ $EUID -eq 0 ]] || { echo "Uruchom jako root." >&2; exit 1; }
 ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
-VERSION=${ENTROPYSILO_LIVE_VERSION:-0.3.0}
+VERSION=${ENTROPYSILO_LIVE_VERSION:-0.3.1}
 WORK=${ENTROPYSILO_LIVE_WORK:-/tmp/entropy-silo-live-build}
 OUT="$ROOT/output"
 ISO_NAME="EntropySilo-Live-x86_64-${VERSION}.iso"
