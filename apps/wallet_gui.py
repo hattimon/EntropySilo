@@ -341,8 +341,13 @@ class WalletGUI:
     def __init__(self):
         pygame.init()
         pygame.mouse.set_visible(DESKTOP_MODE)
-        display_flags = (pygame.FULLSCREEN | pygame.SCALED) if DESKTOP_MODE else 0
-        self.screen = pygame.display.set_mode((WIDTH, HEIGHT), display_flags)
+        if DESKTOP_MODE:
+            info = pygame.display.Info()
+            desktop_w, desktop_h = info.current_w, info.current_h
+            display_flags = pygame.FULLSCREEN | pygame.SCALED
+            self.screen = pygame.display.set_mode((desktop_w, desktop_h), display_flags)
+        else:
+            self.screen = pygame.display.set_mode((WIDTH, HEIGHT), 0)
         self.hardware = DirectFramebuffer(self.screen)
         pygame.display.set_caption("EntropySilo Offline")
         self.font = pygame.font.SysFont("DejaVu Sans Mono", FONT_SIZE)
