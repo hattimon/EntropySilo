@@ -1,6 +1,6 @@
 param(
     [string]$Distribution = "Ubuntu",
-    [string]$Version = "0.3.0"
+    [string]$Version = "0.3.2"
 )
 $ErrorActionPreference = "Stop"
 $project = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path

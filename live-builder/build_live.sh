@@ -4,7 +4,7 @@ umask 022
 
 [[ $EUID -eq 0 ]] || { echo "Uruchom jako root." >&2; exit 1; }
 ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
-VERSION=${ENTROPYSILO_LIVE_VERSION:-0.3.1}
+VERSION=${ENTROPYSILO_LIVE_VERSION:-0.3.2}
 WORK=${ENTROPYSILO_LIVE_WORK:-/tmp/entropy-silo-live-build}
 OUT="$ROOT/output"
 ISO_NAME="EntropySilo-Live-x86_64-${VERSION}.iso"
@@ -58,6 +58,9 @@ Boot: BIOS and UEFI hybrid ISO
 Network: disabled by udev, nftables and service policy
 Vault storage: ephemeral Live overlay in RAM; erased at shutdown
 Exchange media: a separate FAT32/exFAT USB with /EntropySilo
+Display: native fullscreen output with explicit 480x320 logical-canvas scaling
+USB detection: removable-media flag or USB transport; Live boot device excluded
+Legacy restore: read-only support for .rpwb and /RPiWallet backup folders
 Validation: deterministic application tests, ISO structure and SHA-256
 Hardware status: physical laptop/camera/touch matrix still requires real-device confirmation
 The Raspberry Pi 2 image was not modified by this build.

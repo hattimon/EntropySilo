@@ -23,6 +23,8 @@ chmod 0755 "$PROJECT"/apps/*.py "$PROJECT"/apps/*.js "$PROJECT"/apps/*.sh \
 "$PROJECT/scripts/install_swd_offline.sh"
 /usr/local/bin/npm --prefix "$PROJECT" test
 python3 -m py_compile "$PROJECT/apps/wallet_gui.py" "$PROJECT/apps/entropysilo-privileged.py"
+python3 "$PROJECT/tests/test_touch_calibration.py"
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python3 "$PROJECT/scripts/test_gui_navigation.py"
 
 install -m 0755 "$PROJECT/apps/entropysilo-usb" /usr/local/sbin/entropysilo-usb
 install -m 0644 "$PROJECT/systemd/entropysilo-privileged.socket" /etc/systemd/system/

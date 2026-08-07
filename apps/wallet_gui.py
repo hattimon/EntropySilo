@@ -37,6 +37,16 @@ CONTENT_TOP, FOOTER_Y = 88, 289
 BLACK, WHITE, GRAY, DARK = (0, 0, 0), (242, 239, 220), (115, 115, 105), (25, 27, 24)
 PHOSPHOR = (166, 230, 156)
 CARD_RED = (245, 90, 90)
+
+
+def map_display_position(position, display_size):
+    """Map a physical Live-USB pointer position to the 480x320 logical canvas."""
+    display_width, display_height = display_size
+    if display_width <= 0 or display_height <= 0:
+        return 0, 0
+    x = int(position[0] * WIDTH / display_width)
+    y = int(position[1] * HEIGHT / display_height)
+    return max(0, min(WIDTH - 1, x)), max(0, min(HEIGHT - 1, y))
 THEMES = {
     "mono": {"bg": (0, 0, 0), "text": (242, 239, 220), "accent": (242, 239, 220), "dim": (115, 115, 105), "panel": (25, 27, 24), "shadow": (55, 55, 50), "style": "outline"},
     "phosphor": {"bg": (1, 10, 4), "text": (166, 230, 156), "accent": (94, 255, 128), "dim": (55, 130, 72), "panel": (8, 31, 14), "shadow": (2, 65, 18), "style": "crt"},
@@ -341,13 +351,17 @@ class WalletGUI:
     def __init__(self):
         pygame.init()
         pygame.mouse.set_visible(DESKTOP_MODE)
+        self.fullscreen = DESKTOP_MODE
         if DESKTOP_MODE:
-            info = pygame.display.Info()
-            desktop_w, desktop_h = info.current_w, info.current_h
-            display_flags = pygame.FULLSCREEN | pygame.SCALED
-            self.screen = pygame.display.set_mode((desktop_w, desktop_h), display_flags)
+            # X11/SDL scaling is inconsistent without a desktop environment.  Keep
+            # the application on a deterministic 480x320 canvas and explicitly
+            # stretch that canvas to the active native display mode in present().
+            self.output = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+            self.screen = pygame.Surface((WIDTH, HEIGHT)).convert()
+            print(f"EntropySilo Live display: {self.output.get_width()}x{self.output.get_height()} -> {WIDTH}x{HEIGHT} logical", flush=True)
         else:
             self.screen = pygame.display.set_mode((WIDTH, HEIGHT), 0)
+            self.output = self.screen
         self.hardware = DirectFramebuffer(self.screen)
         pygame.display.set_caption("EntropySilo Offline")
         self.font = pygame.font.SysFont("DejaVu Sans Mono", FONT_SIZE)
@@ -374,7 +388,11 @@ class WalletGUI:
             self.calibrate_touch(automatic=True)
 
     def present(self):
-        self.hardware.present()
+        if DESKTOP_MODE:
+            pygame.transform.scale(self.screen, self.output.get_size(), self.output)
+            pygame.display.flip()
+        else:
+            self.hardware.present()
 
     def tr(self, pl, en):
         return en if self.lang == "en" else pl
@@ -652,6 +670,15 @@ class WalletGUI:
         self.text(subtitle_line, 14, 56, self.small, self.palette["dim"])
         self.text("[AIR-GAP]", 345, 56, self.small, self.palette["dim"])
 
+    def toggle_fullscreen(self):
+        # Live USB only: the logical canvas is unchanged; only its physical target
+        # switches between the native full screen and a resizable diagnostic window.
+        self.fullscreen = not self.fullscreen
+        if self.fullscreen:
+            self.output = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        else:
+            self.output = pygame.display.set_mode((960, 640), pygame.RESIZABLE)
+
     def events(self):
         timeout = int(self.settings.get("autoLock", 120))
         if self.auto_lock_enabled and timeout > 0 and self.session_pin and time.monotonic() - self.last_activity > timeout:
@@ -661,6 +688,16 @@ class WalletGUI:
             if event.type == pygame.QUIT:
                 self.running = False
                 raise Cancelled()
+            if DESKTOP_MODE and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and (event.mod & (pygame.KMOD_ALT)):
+                self.toggle_fullscreen()
+                continue
+            if DESKTOP_MODE and event.type == pygame.VIDEORESIZE and not self.fullscreen:
+                self.output = pygame.display.set_mode((max(WIDTH, event.w), max(HEIGHT, event.h)), pygame.RESIZABLE)
+                continue
+            if DESKTOP_MODE and event.type in (pygame.MOUSEBUTTONDOWN, pygame.MOUSEBUTTONUP, pygame.MOUSEMOTION):
+                attributes = dict(event.dict)
+                attributes["pos"] = map_display_position(event.pos, self.output.get_size())
+                event = pygame.event.Event(event.type, attributes)
             if event.type in (pygame.KEYDOWN, pygame.MOUSEBUTTONDOWN): self.last_activity = time.monotonic()
             yield event
 
@@ -1269,7 +1306,7 @@ class WalletGUI:
             except (ValueError, OverflowError, OSError): continue
             choices.append({"name": name, "number": number, "size": size, "date": date})
         choices.sort(key=lambda item: item["number"])
-        if not choices: raise ValueError(self.tr("Nie znaleziono backupów w /EntropySilo.", "No backups found in /EntropySilo."))
+        if not choices: raise ValueError(self.tr("Nie znaleziono backupów w /EntropySilo ani w starszym /RPiWallet.", "No backups were found in /EntropySilo or the legacy /RPiWallet folder."))
         return choices
 
     def psbt_choices(self):
@@ -1311,8 +1348,8 @@ class WalletGUI:
 
     def restore_backup_usb(self, first_run=False):
         self.show(self.tr("ODTWARZANIE USB", "USB RESTORE"), self.tr(
-            "Podłącz jeden pendrive FAT32/exFAT. Odczytane zostaną pliki /EntropySilo/backup[liczba].eswb oraz starsze .rpwb.",
-            "Connect one FAT32/exFAT USB drive. /EntropySilo/backup[number].eswb and legacy .rpwb files will be read."))
+            "Podłącz DRUGI pendrive FAT32/exFAT — nośnik startowy Live jest celowo wykluczony. Odczytane zostaną pliki /EntropySilo/backup[liczba].eswb, starsze .rpwb oraz kopie ze starszego katalogu /RPiWallet.",
+            "Connect a SECOND FAT32/exFAT USB drive—the Live boot medium is deliberately excluded. /EntropySilo/backup[number].eswb, legacy .rpwb and backups in the old /RPiWallet folder are supported."))
         choices = self.backup_choices()
         labels = [f"{item['name']} • {(item['size'] + 1023) // 1024} KiB • {item['date']}" for item in choices]
         selected = choices[self.menu(self.tr("WYBIERZ BACKUP", "SELECT BACKUP"), labels,
@@ -2112,9 +2149,10 @@ class WalletGUI:
         node = subprocess.run([NODE, "-v"], capture_output=True, text=True, check=False).stdout.strip()
         net = Path("/sys/class/net")
         interfaces = ", ".join(sorted(path.name for path in net.iterdir())) if net.exists() else "?"
+        physical = self.output.get_size()
         self.show(self.tr("DIAGNOSTYKA", "DIAGNOSTICS"), self.tr(
-            f"Node: {node}\nPython: {sys.version.split()[0]}\nInterfejsy: {interfaces}\nRozdzielczość: {WIDTH}x{HEIGHT}\nSkarbiec: AES-256-GCM + scrypt\nPolityka sieciowa powinna wynosić DROP/DROP.",
-            f"Node: {node}\nPython: {sys.version.split()[0]}\nInterfaces: {interfaces}\nResolution: {WIDTH}x{HEIGHT}\nVault: AES-256-GCM + scrypt\nThe network policy should be DROP/DROP.",
+            f"Node: {node}\nPython: {sys.version.split()[0]}\nInterfejsy: {interfaces}\nGUI: {WIDTH}x{HEIGHT} -> ekran {physical[0]}x{physical[1]}\nSkarbiec: AES-256-GCM + scrypt\nPolityka sieciowa powinna wynosić DROP/DROP.",
+            f"Node: {node}\nPython: {sys.version.split()[0]}\nInterfaces: {interfaces}\nGUI: {WIDTH}x{HEIGHT} -> display {physical[0]}x{physical[1]}\nVault: AES-256-GCM + scrypt\nThe network policy should be DROP/DROP.",
         ))
 
     def change_pin(self):

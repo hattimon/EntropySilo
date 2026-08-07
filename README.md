@@ -164,13 +164,13 @@ Always verify SHA-256 before writing an image to an SD card or USB drive. A back
 | Raspberry Pi 2 Model B | ARMv7 / 32-bit | Waveshare 3.5inch RPi LCD (A), 480x320 | 0.3.0 build complete; released in v0.3.0 GitHub release |
 | Raspberry Pi 3 | ARM64 | Waveshare 3.5inch RPi LCD (A) | Planned as a separate image |
 | Raspberry Pi 4/5 | ARM64 | Waveshare 3.5inch RPi LCD (A) | Planned as a separate image |
-| PC Live USB | x86-64 | Generic display, keyboard, mouse/touch and UVC camera | 0.3.0 build complete; released in v0.3.0 GitHub release |
+| PC Live USB | x86-64 | Generic display, keyboard, mouse/touch and UVC camera | 0.3.2 display/USB hotfix; automated ISO validation complete, physical retest required |
 
-EntropySilo 0.3.0 release artifacts (available on the [v0.3.0 GitHub release](https://github.com/hattimon/EntropySilo/releases/tag/v0.3.0)):
+Current platform-specific release artifacts:
 
 ```text
 EntropySilo-Pi2-Bookworm-0.3.0.img.xz
-EntropySilo-Live-x86_64-0.3.0.iso
+EntropySilo-Live-x86_64-0.3.2.iso
 ```
 
 #### ⬇️ Direct download links
@@ -178,9 +178,9 @@ EntropySilo-Live-x86_64-0.3.0.iso
 | Platform | Image | Download |
 |---|---|---|
 | 🔌 Raspberry Pi 2 | EntropySilo-Pi2-Bookworm-0.3.0.img.xz | [⬇️ Download](https://github.com/hattimon/EntropySilo/releases/download/v0.3.0/EntropySilo-Pi2-Bookworm-0.3.0.img.xz) |
-| 💻 PC Live USB (x86-64) | EntropySilo-Live-x86_64-0.3.0.iso | [⬇️ Download](https://github.com/hattimon/EntropySilo/releases/download/v0.3.0/EntropySilo-Live-x86_64-0.3.0.iso) |
+| 💻 PC Live USB (x86-64) | EntropySilo-Live-x86_64-0.3.2.iso | [⬇️ Download](https://github.com/hattimon/EntropySilo/releases/download/v0.3.2/EntropySilo-Live-x86_64-0.3.2.iso) |
 
-Both platforms are validated for the complete boot, display, input, backup, recovery and PSBT-signing workflow. See the [v0.3.0 release page](https://github.com/hattimon/EntropySilo/releases/tag/v0.3.0) for `.sha256` checksums and `.txt` compatibility reports.
+The Raspberry Pi 2 artifact remains unchanged at 0.3.0. Live USB 0.3.2 fixes native-display fullscreen scaling and detection of a separate USB data drive, including devices that report USB transport but not the removable-media bit. Its automated tests and ISO-structure validation pass; the corrected display and backup workflow still require confirmation on physical laptop hardware. See the matching release pages for `.sha256` checksums and `.txt` compatibility reports.
 
 Each future image will have a matching `.txt` compatibility report. A platform will not be described as validated until its complete boot, display, input, backup, recovery and PSBT-signing workflow has been tested on physical hardware.
 

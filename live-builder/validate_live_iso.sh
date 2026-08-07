@@ -35,6 +35,13 @@ for link in \
   etc/systemd/system/sockets.target.wants/entropysilo-privileged.socket; do
   unsquashfs -ll "$work/filesystem.squashfs" "$link" | grep -Fq "squashfs-root/$link"
 done
+unsquashfs -cat "$work/filesystem.squashfs" opt/entropysilo/apps/wallet_gui.py >"$work/wallet_gui.py"
+grep -Fq 'pygame.display.set_mode((0, 0), pygame.FULLSCREEN)' "$work/wallet_gui.py"
+grep -Fq 'pygame.transform.scale(self.screen, self.output.get_size(), self.output)' "$work/wallet_gui.py"
+grep -Fq 'map_display_position(event.pos, self.output.get_size())' "$work/wallet_gui.py"
+unsquashfs -cat "$work/filesystem.squashfs" usr/local/sbin/entropysilo-usb >"$work/entropysilo-usb"
+grep -Fq 'lsblk -dnro TRAN' "$work/entropysilo-usb"
+grep -Fq 'for directory in EntropySilo RPiWallet' "$work/entropysilo-usb"
 unsquashfs -cat "$work/filesystem.squashfs" etc/nftables.conf | grep -Fq 'policy drop'
 unsquashfs -cat "$work/filesystem.squashfs" etc/udev/rules.d/99-entropysilo-network.rules | grep -Fq 'SUBSYSTEM=="net"'
 if unsquashfs -ll "$work/filesystem.squashfs" usr/bin/sudo | grep -Fq 'squashfs-root/usr/bin/sudo'; then
