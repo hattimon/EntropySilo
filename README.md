@@ -20,7 +20,7 @@
 
 EntropySilo is a security-focused, offline environment for generating, recovering, organizing and using Bitcoin wallets. It combines full-entropy BIP39 seed generation, physical card-derived randomness, the first-party [Seed Generator Wallet Decoder](https://github.com/hattimon/Seed-Generator-Wallet-Decoder) and [wallet-decoder](https://github.com/hattimon/wallet-decoder) projects by hattimon, deterministic BIP85 child wallets, watch-only exports and offline PSBT signing.
 
-EntropySilo provides separate build targets for Raspberry Pi 2 Model B with the Waveshare 3.5inch RPi LCD (A) and for x86-64 laptops/PCs as a Live USB. Version 0.3.0 uses EntropySilo naming and paths throughout both systems. Release images will be published only after their automated build validation completes; physical confirmation remains required before protecting substantial funds.
+EntropySilo provides separate build targets for Raspberry Pi 2 Model B with the Waveshare 3.5inch RPi LCD (A) and for x86-64 laptops/PCs as a Live image. The Live ISO can be written to a USB drive or burned to CD/DVD for systems that support optical boot. The 0.3 release series uses EntropySilo naming and paths throughout both systems. Release images are published only after their automated build validation completes; always verify recovery and the complete signing workflow with a small test amount before protecting substantial funds.
 
 > [!WARNING]
 > EntropySilo is an experimental, independently built signer. It is not equivalent to a certified hardware wallet and has not yet undergone an independent professional security audit. Raspberry Pi 2 has no secure element, verified/measured boot or tamper-resistant enclosure. Test recovery and the complete signing workflow with an empty wallet or a small amount before protecting real funds.
@@ -164,7 +164,7 @@ Always verify SHA-256 before writing an image to an SD card or USB drive. A back
 | Raspberry Pi 2 Model B | ARMv7 / 32-bit | Waveshare 3.5inch RPi LCD (A), 480x320 | 0.3.0 build complete; released in v0.3.0 GitHub release |
 | Raspberry Pi 3 | ARM64 | Waveshare 3.5inch RPi LCD (A) | Planned as a separate image |
 | Raspberry Pi 4/5 | ARM64 | Waveshare 3.5inch RPi LCD (A) | Planned as a separate image |
-| PC Live USB | x86-64 | Generic display, keyboard, mouse/touch and UVC camera | 0.3.2 display/USB hotfix; automated ISO validation complete, physical retest required |
+| PC Live USB / CD/DVD | x86-64 | Generic display, keyboard, mouse/touch and UVC camera | 0.3.2 display/USB hotfix; automated ISO validation and physical laptop boot/display test complete |
 
 Current platform-specific release artifacts:
 
@@ -180,9 +180,9 @@ EntropySilo-Live-x86_64-0.3.2.iso
 | 🔌 Raspberry Pi 2 | EntropySilo-Pi2-Bookworm-0.3.0.img.xz | [⬇️ Download](https://github.com/hattimon/EntropySilo/releases/download/v0.3.0/EntropySilo-Pi2-Bookworm-0.3.0.img.xz) |
 | 💻 PC Live USB (x86-64) | EntropySilo-Live-x86_64-0.3.2.iso | [⬇️ Download](https://github.com/hattimon/EntropySilo/releases/download/v0.3.2/EntropySilo-Live-x86_64-0.3.2.iso) |
 
-The Raspberry Pi 2 artifact remains unchanged at 0.3.0. Live USB 0.3.2 fixes native-display fullscreen scaling and detection of a separate USB data drive, including devices that report USB transport but not the removable-media bit. Its automated tests and ISO-structure validation pass; the corrected display and backup workflow still require confirmation on physical laptop hardware. See the matching release pages for `.sha256` checksums and `.txt` compatibility reports.
+The Raspberry Pi 2 artifact remains unchanged at 0.3.0. Live USB 0.3.2 fixes native-display fullscreen scaling and detection of a separate USB data drive, including devices that report USB transport but not the removable-media bit. Automated tests, ISO-structure validation and a physical laptop boot/display test have passed. See the matching release pages for `.sha256` checksums and `.txt` compatibility reports.
 
-Each future image will have a matching `.txt` compatibility report. A platform will not be described as validated until its complete boot, display, input, backup, recovery and PSBT-signing workflow has been tested on physical hardware.
+Each future image will have a matching `.txt` compatibility report. A platform is described as fully workflow-validated only after its complete boot, display, input, backup, recovery and PSBT-signing workflow has been tested on physical hardware.
 
 ## 🛠️ Building the Pi 2 image
 
@@ -206,7 +206,7 @@ The builder downloads the official Raspberry Pi OS Lite base, verifies pinned as
 
 ## 🛠️ Building the x86-64 Live USB image
 
-The Live edition is a separate Debian Bookworm hybrid ISO for 64-bit laptops and PCs. It supports BIOS and UEFI boot, runs the interface fullscreen, disables networking, and keeps the vault in the non-persistent Live overlay. Vault changes disappear at shutdown. Use a **second** FAT32/exFAT USB drive with `/EntropySilo` for imports, PSBT files and encrypted backups; the boot medium is explicitly excluded from data-drive selection.
+The Live edition is a separate Debian Bookworm hybrid ISO for 64-bit laptops and PCs. It supports BIOS and UEFI boot, can be written to a USB drive or burned to CD/DVD, runs the interface fullscreen, disables networking, and keeps the vault in the non-persistent Live overlay. Newly generated wallets are intentionally not written to the Live boot medium, and vault changes disappear at shutdown. Keep recovery words on paper and/or create an encrypted backup on a **separate** FAT32/exFAT USB drive in `/EntropySilo`; this separate drive is also used for imports and PSBT exchange. The boot medium is explicitly excluded from data-drive selection.
 
 Windows PowerShell with WSL2/Ubuntu:
 

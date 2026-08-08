@@ -20,7 +20,7 @@
 
 EntropySilo to ukierunkowane na bezpieczeństwo środowisko offline do generowania, odzyskiwania, porządkowania i używania portfeli Bitcoin. Łączy generowanie pełnej entropii BIP39, fizyczną losowość pochodzącą z kart, autorskie projekty hattimon [Seed Generator Wallet Decoder](https://github.com/hattimon/Seed-Generator-Wallet-Decoder) oraz [wallet-decoder](https://github.com/hattimon/wallet-decoder), deterministyczne portfele potomne BIP85, eksport watch-only i podpisywanie transakcji PSBT bez dostępu do sieci.
 
-EntropySilo udostępnia osobne cele budowania dla Raspberry Pi 2 Model B z ekranem Waveshare 3.5inch RPi LCD (A) oraz dla laptopów/PC x86-64 jako Live USB. Wersja 0.3.0 używa nazwy i ścieżek EntropySilo w obu systemach. Obrazy wydania zostaną opublikowane dopiero po przejściu automatycznej walidacji budowy; przed ochroną znacznych środków nadal wymagają potwierdzenia na fizycznym sprzęcie.
+EntropySilo udostępnia osobne cele budowania dla Raspberry Pi 2 Model B z ekranem Waveshare 3.5inch RPi LCD (A) oraz dla laptopów/PC x86-64 jako obraz Live. ISO Live można nagrać na pendrive albo wypalić na CD/DVD dla komputerów obsługujących rozruch z nośnika optycznego. Seria wydań 0.3 używa nazwy i ścieżek EntropySilo w obu systemach. Obrazy wydania są publikowane dopiero po przejściu automatycznej walidacji budowy; przed ochroną znacznych środków zawsze sprawdź odzyskiwanie i cały proces podpisywania na małej kwocie testowej.
 
 > [!WARNING]
 > EntropySilo jest eksperymentalnym, niezależnie zbudowanym urządzeniem podpisującym. Nie jest odpowiednikiem certyfikowanego portfela sprzętowego i nie przeszedł jeszcze niezależnego, profesjonalnego audytu bezpieczeństwa. Raspberry Pi 2 nie ma secure elementu, weryfikowanego/mierzonego rozruchu ani obudowy odpornej na manipulacje. Przed ochroną rzeczywistych środków przetestuj odzyskiwanie i cały proces podpisywania na pustym portfelu lub małej kwocie.
@@ -164,7 +164,7 @@ Przed zapisaniem obrazu na kartę SD albo USB zawsze zweryfikuj SHA-256. Zapasow
 | Raspberry Pi 2 Model B | ARMv7 / 32-bit | Waveshare 3.5inch RPi LCD (A), 480x320 | Budowa 0.3.0 ukończona; wydana w release v0.3.0 GitHub |
 | Raspberry Pi 3 | ARM64 | Waveshare 3.5inch RPi LCD (A) | Planowany osobny obraz |
 | Raspberry Pi 4/5 | ARM64 | Waveshare 3.5inch RPi LCD (A) | Planowany osobny obraz |
-| PC Live USB | x86-64 | Standardowy ekran, klawiatura, mysz/dotyk i kamera UVC | Poprawka obrazu i USB 0.3.2; automatyczna walidacja ISO ukończona, wymagany ponowny test sprzętowy |
+| PC Live USB / CD/DVD | x86-64 | Standardowy ekran, klawiatura, mysz/dotyk i kamera UVC | Poprawka obrazu i USB 0.3.2; automatyczna walidacja ISO oraz fizyczny test rozruchu i obrazu na laptopie ukończone |
 
 Aktualne artefakty dla poszczególnych platform:
 
@@ -180,9 +180,9 @@ EntropySilo-Live-x86_64-0.3.2.iso
 | 🔌 Raspberry Pi 2 | EntropySilo-Pi2-Bookworm-0.3.0.img.xz | [⬇️ Pobierz](https://github.com/hattimon/EntropySilo/releases/download/v0.3.0/EntropySilo-Pi2-Bookworm-0.3.0.img.xz) |
 | 💻 PC Live USB (x86-64) | EntropySilo-Live-x86_64-0.3.2.iso | [⬇️ Pobierz](https://github.com/hattimon/EntropySilo/releases/download/v0.3.2/EntropySilo-Live-x86_64-0.3.2.iso) |
 
-Obraz Raspberry Pi 2 pozostaje bez zmian w wersji 0.3.0. Live USB 0.3.2 naprawia skalowanie GUI do natywnej rozdzielczości całego ekranu oraz wykrywanie osobnego pendrive'a danych, również gdy urządzenie zgłasza transport USB, lecz nie ustawia flagi nośnika wymiennego. Testy automatyczne i walidacja struktury ISO przechodzą poprawnie; naprawiony obraz i operacje backupu nadal wymagają potwierdzenia na fizycznym laptopie. Sumy `.sha256` i raporty zgodności `.txt` znajdują się przy odpowiednich wydaniach.
+Obraz Raspberry Pi 2 pozostaje bez zmian w wersji 0.3.0. Live USB 0.3.2 naprawia skalowanie GUI do natywnej rozdzielczości całego ekranu oraz wykrywanie osobnego pendrive'a danych, również gdy urządzenie zgłasza transport USB, lecz nie ustawia flagi nośnika wymiennego. Testy automatyczne, walidacja struktury ISO oraz fizyczny test rozruchu i wyświetlania na laptopie przeszły poprawnie. Sumy `.sha256` i raporty zgodności `.txt` znajdują się przy odpowiednich wydaniach.
 
-Każdy przyszły obraz otrzyma odpowiadający mu raport zgodności `.txt`. Platforma nie zostanie opisana jako zweryfikowana, dopóki cały proces rozruchu, obrazu, sterowania, backupu, odzyskiwania i podpisywania PSBT nie zostanie sprawdzony na fizycznym sprzęcie.
+Każdy przyszły obraz otrzyma odpowiadający mu raport zgodności `.txt`. Platforma jest opisywana jako w pełni zweryfikowana dla całego procesu dopiero po sprawdzeniu na fizycznym sprzęcie rozruchu, obrazu, sterowania, backupu, odzyskiwania i podpisywania PSBT.
 
 ## 🛠️ Budowanie obrazu Pi 2
 
@@ -206,7 +206,7 @@ Budowniczy pobiera oficjalną bazę Raspberry Pi OS Lite, weryfikuje przypięte 
 
 ## 🛠️ Budowanie obrazu Live USB x86-64
 
-Edycja Live jest osobnym hybrydowym ISO Debian Bookworm dla 64-bitowych laptopów i komputerów PC. Obsługuje start BIOS i UEFI, uruchamia interfejs pełnoekranowo, wyłącza sieć oraz przechowuje skarbiec w nietrwałej warstwie systemu Live. Zmiany skarbca znikają po wyłączeniu. Do importu, PSBT i szyfrowanych backupów używaj **drugiego** pendrive'a FAT32/exFAT z katalogiem `/EntropySilo`; nośnik startowy jest jawnie wykluczony z wyboru nośnika danych.
+Edycja Live jest osobnym hybrydowym ISO Debian Bookworm dla 64-bitowych laptopów i komputerów PC. Obsługuje start BIOS i UEFI, można ją nagrać na pendrive albo wypalić na CD/DVD, uruchamia interfejs pełnoekranowo, wyłącza sieć oraz przechowuje skarbiec w nietrwałej warstwie systemu Live. Nowo wygenerowane portfele celowo nie są zapisywane na nośniku startowym Live, a zmiany skarbca znikają po wyłączeniu. Słowa odzyskiwania zachowaj na papierze i/lub wykonaj szyfrowany backup na **drugim** pendrivie FAT32/exFAT w katalogu `/EntropySilo`; ten osobny nośnik służy też do importu i wymiany PSBT. Nośnik startowy jest jawnie wykluczony z wyboru nośnika danych.
 
 Windows PowerShell z WSL2/Ubuntu:
 
