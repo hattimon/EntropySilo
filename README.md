@@ -255,7 +255,7 @@ The intended support channels are designed to remain inexpensive both in Poland 
 
 | Method | Best for | Cost model |
 |---|---|---|
-| **₿ Bitcoin on-chain** | Larger international tips | Direct payment without a payment processor; the sender pays the Bitcoin network fee. Donation address (SegWit, separate from EntropySilo wallets): `bc1q73wncmalnn4pa8fh742yfzwgmlscfc5lk240aw`. Always verify the address against this repository before sending. |
+| **₿ Bitcoin on-chain** | Larger international tips | Direct payment without a payment processor; the sender pays the Bitcoin network fee. Donation address (SegWit, generated with EntropySilo): `bc1q73wncmalnn4pa8fh742yfzwgmlscfc5lk240aw`. Always verify the address against this repository before sending. |
 | **⚡Bitcoin Lightning** | Small international tips | Instant, low-fee tips via Lightning Address. You can send any amount from any Lightning wallet (e.g. Phoenix, Muun, Zeus, Breez). Send to: [verdantdawn594@walletofsatoshi.com](mailto:verdantdawn594@walletofsatoshi.com) (self-custody wallet with seed backup; used only for small tips, not for long-term storage). |
 
   
