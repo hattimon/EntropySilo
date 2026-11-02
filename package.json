@@ -14,15 +14,15 @@
     "vendor:wordlist": "node scripts/vendor_bip39_wordlist.mjs"
   },
   "dependencies": {
-    "@scure/bip39": "2.2.0",
-    "bip32": "5.0.0",
-    "bitcoinjs-lib": "7.0.0",
-    "ecpair": "3.0.0",
+    "@scure/bip39": "2.4.0",
+    "bip32": "5.0.1",
+    "bitcoinjs-lib": "7.0.5",
+    "ecpair": "3.0.2",
     "jpeg-js": "0.4.4",
     "jsqr": "1.4.0",
     "pngjs": "7.0.0",
     "qrcode": "1.5.4",
-    "tiny-secp256k1": "2.2.4"
+    "tiny-secp256k1": "2.2.5"
   },
   "overrides": {
     "valibot": "1.4.2"
